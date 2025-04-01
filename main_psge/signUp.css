@@ -56,13 +56,14 @@ border-radius: var(--border-radius-m);
 
 .container .forms .title{
     position: relative ;
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
     color: var(--dark-color);
     text-align: center;
     margin-bottom: 20px;
+    margin-left:25px;
 }
-.forms .title::before{
+/* .forms .title::before{
     content: '';
     position: absolute;
     width: 35px;
@@ -71,7 +72,7 @@ border-radius: var(--border-radius-m);
     left: 0;
     bottom: 0;
     border-radius: 20%;
-}
+} */
 .forms .input-field{
     background-color: #252525;
     margin-top: 20px ;
@@ -100,24 +101,7 @@ color: var(--secondary-color);
     scale: 1.02;
     transition: all 0.3s ease-in-out;
 }
-.forms .forget-pass{
-    margin: 10px;
-    font-size: var(--font-size-s);
-    font-weight: var(--font-weight-normal);
-    color: var(--dark-color);
-    text-align: left;
-    cursor: pointer;
-    margin-left:8px;
 
-}
-.forms .forget-pass a{
-    color: var(--dark-color);
-    /* text-decoration: none; */
-    
-}
-.forms .forget-pass a:hover{
-    color: var(--secondary-color);
-}
 .forms .btn{
     background-color: var(--secondary-color);
     color: var(--white-color);
@@ -131,8 +115,7 @@ color: var(--secondary-color);
     border: none;
     cursor: pointer;
     border-bottom: 2px solid var(--secondary-color);
-    margin-top:5px;
-    margin-bottom:5px;
+    margin-top:25px;
 }
 .forms .btn:hover{
     background-color: var(--dark-color);
