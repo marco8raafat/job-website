@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* The box-sizing property allows us to include padding and border in the element's total width and height*/
+  font-family: "Poppins", sans-serif;
+}
+:root {
+  --white-color: #fff;
+  --dark-color: #252525;
+  --primary-color: #211578;
+  --secondary-color: #e8880a;
+  --light-pink-color: #faf4f5;
+  --medium-gray-color: #ccc;
+
+  /* Font size */
+  --font-size-s: 0.9rem;
+  --font-size-n: 1rem;
+  --font-size-m: 1.12rem;
+  --font-size-l: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-xxl: 2.3rem;
+
+  /* Font weight */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Border radius */
+  --border-radius-s: 8px;
+  --border-radius-m: 30px;
+  --border-radius-circle: 50%;
+
+  /* Site max width */
+  --site-max-width: 1300px;
+}
+body{
+    background-color: var(--primary-color);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+position: relative;
+max-width: 440px;
+width: 100%;
+background-color: var( --light-pink-color);
+box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+border-radius: var(--border-radius-m);
+}
+.container .forms{
+    padding: 30px;
+}
+
+.container .forms .title{
+    position: relative ;
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-bold);
+    color: var(--dark-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+.forms .title::before{
+    content: '';
+    position: absolute;
+    width: 35px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    left: 0;
+    bottom: 0;
+    border-radius: 20%;
+}
+.forms .input-field{
+    background-color: #252525;
+    margin-top: 20px ;
+    height: 50px;
+    width: 100%;
+    border-radius: var(--border-radius-m);
+}
+.forms .input-field input{
+    width: 90%;
+    height: 100%;
+    padding: 0 15px;
+    font-size: var(--font-size-n);
+    font-weight: var(--font-weight-normal);
+    color: var(--white-color);
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+.forms .input-field i{
+color: var(--secondary-color);
+}
+.forms .input-field i:hover{
+    color: var(--white-color);
+}
+.forms .input-field:hover{
+    scale: 1.02;
+    transition: all 0.3s ease-in-out;
+}
+.forms .forget-pass{
+    margin: 10px;
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-normal);
+    color: var(--dark-color);
+    text-align: left;
+    cursor: pointer;
+    margin-left:8px;
+
+}
+.forms .forget-pass a{
+    color: var(--dark-color);
+    /* text-decoration: none; */
+    
+}
+.forms .forget-pass a:hover{
+    color: var(--secondary-color);
+}
+.forms .btn{
+    background-color: var(--secondary-color);
+    color: var(--white-color);
+    font-size: var(--font-size-n);
+    font-weight: var(--font-weight-bold);
+    border-radius: var(--border-radius-m);
+    width: 50%;
+    height: 50px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid var(--secondary-color);
+    margin-top:5px;
+    margin-bottom:5px;
+}
+.forms .btn:hover{
+    background-color: var(--dark-color);
+    border-bottom: 2px solid black;
+    transition: all 0.3s ease-in-out;
+}
+.forms .login-register p{
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-normal);
+    color: var(--dark-color);
+    margin-left:8px;
+    margin-top:5px;
+}
+.forms .login-register p a{
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-normal);
+    color: var(--secondary-color);
+    margin-left:8px;
+}
+#choice{
+    color: #6e6c6c;
+    font-size: var(--font-size-s);
+    font-weight: var(--font-weight-normal);
+    padding: 10px;
+}
