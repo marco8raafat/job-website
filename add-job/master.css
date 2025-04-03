@@ -1,0 +1,210 @@
+@import url("https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+:root {
+  --white-color: #fff;
+  --dark-color: #252525;
+  --primary-color: #211578;
+  --secondary-color: #f3961c;
+  --light-pink-color: #faf4f5;
+  --medium-gray-color: #ccc;
+
+  /* Font size */
+  --font-size-s: 0.9rem;
+  --font-size-n: 1rem;
+  --font-size-m: 1.12rem;
+  --font-size-l: 1.5rem;
+  --font-size-xl: 2rem;
+  --font-size-xxl: 2.3rem;
+
+  /* Font weight */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Border radius */
+  --border-radius-s: 8px;
+  --border-radius-m: 30px;
+  --border-radius-circle: 50%;
+
+  /* Site max width */
+  --site-max-width: 1300px;
+}
+
+/* Navigation styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.logo {
+    font-size: var(--font-size-l);
+    font-weight: var(--font-weight-bold);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-s);
+    color: var(--dark-color) !important;
+    font-weight: var(--font-weight-semibold) !important;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #211578;
+}
+
+.container {
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    border-radius: 6px;
+    padding: 30px;
+    margin: 30px auto;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.container header {
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+.container header::before {
+    content: "";
+    position: absolute;
+    border-radius: 8px;
+    left: 0;
+    bottom: -2px;
+    height: 3px;
+    width: 27px;
+    background-color: #4070f4;
+}
+.container form {
+    position: relative;
+    margin: 16px;
+    min-height: 472px;
+    background-color: #fff;
+}
+.container form .job {
+    margin-top: 30px;
+}
+.container form .title {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 6px 0;
+    color: #333;
+}
+.container form .fields {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+form .fields .input-field {
+    display: flex;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+.input-field label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #2e2e2e;
+}
+.input-field input {
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 0 15px;
+    height: 42px;
+    margin: 8px 0;
+}
+form .fields .in-open {
+    display: flex;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+.in-open p {
+    font-size: 15px;
+    font-weight: 500;
+    color: #2e2e2e;
+    margin-bottom: 10px;
+}
+.in-open label {
+    margin-left: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #2e2e2e; 
+}
+.in-open input {
+    margin-right: 5px;
+}
+form .fields .in-closed {
+    display: flex;
+    width: calc(100% / 3 - 15px);
+    flex-direction: column;
+    margin: 4px 0;
+}
+.in-closed label {
+    margin-left: 5px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #2e2e2e; 
+}
+.sub {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+.sub input {
+    position: absolute;
+    top: 90%;
+    right: 0;
+    padding: 10px 30px;
+    outline: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    border-radius: 15px;
+    border: 1px solid #f3efef;
+    background-color: orange;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.sub input:hover {
+    background-color: #e68a00;
+}
