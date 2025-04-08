@@ -188,14 +188,15 @@ section {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4.5rem;
+  gap: 2.5rem;
 }
 
 .nav-links a {
   color: #1e293b;
   font-weight: 500;
   text-decoration: none;
-  font-size: 19px;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem; /* Add consistent padding */
 }
 
 .nav-links li {
@@ -206,7 +207,6 @@ section {
   color: #2563eb;
   background-color: rgba(255, 255, 255, 0.997);
   border-radius: 0.375rem;
-  padding: 0.5rem 1rem;
   transition: all 0.5s ease-in-out;
 }
 
