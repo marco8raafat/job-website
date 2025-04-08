@@ -90,8 +90,6 @@ p {
 
 .btn-primary {
   background-color: var(--secondary-color);
-<<<<<<< HEAD
-=======
   color: white;
 }
 
@@ -101,7 +99,6 @@ p {
 }
 
 .btn-secondary {
->>>>>>> b768eb935b009fdc480158c3881f762ac7168de2
   color: white;
   scale: 1.055;
 }
@@ -477,8 +474,4 @@ footer {
   .hero-content p {
     font-size: 0.9rem;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b768eb935b009fdc480158c3881f762ac7168de2
