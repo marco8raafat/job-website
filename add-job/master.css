@@ -3,13 +3,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 :root {
   --white-color: #fff;
   --dark-color: #252525;
-  --primary-color: #211578;
-  --secondary-color: #f3961c;
+  --primary-color: #439fc0;
+  --secondary-color: #55a6e1;
   --light-pink-color: #faf4f5;
   --medium-gray-color: #ccc;
 
@@ -34,6 +34,8 @@
 
   /* Site max width */
   --site-max-width: 1300px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* Navigation styles */
@@ -42,54 +44,89 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.322);
+    box-shadow: var(--shadow);
     color: white;
 }
 
 .logo {
-    font-size: var(--font-size-l);
-    font-weight: var(--font-weight-bold);
-}
-
-.nav-links {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color:#2563eb;
+  }
+  
+  .nav-links {
     display: flex;
-    list-style: none;
-}
-
-.nav-links li {
-    margin-left: 2rem;
-}
-
-.nav-links a {
-    color: white;
+    align-items: center;
+    gap: 4.5rem;
+  }
+  
+  .nav-links a {
+    color: #1e293b;
+    font-weight: 500;
     text-decoration: none;
-    font-weight: var(--font-weight-medium);
-}
-
-.btn-secondary {
-    background-color: var(--secondary-color);
+    font-size: 19px;
+  }
+  .nav-links li {
+    list-style: none;
+  }
+  
+  .nav-links a:hover {
+    color: #2563eb;
+    background-color: rgba(255, 255, 255, 0.997);
+    border-radius: 0.375rem;
     padding: 0.5rem 1rem;
-    border-radius: var(--border-radius-s);
-    color: var(--dark-color) !important;
-    font-weight: var(--font-weight-semibold) !important;
+    transition: all 0.5s ease-in-out;
 }
-
+.btn-secondary, .btn-primary{
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+.btn-secondary{
+    background-color: #2563eb;
+    color: white;
+}
+.btn-secondary:hover {
+    background-color: #1d4ed8;
+    color: white;
+    scale: 1.2;
+}
+.btn-primary{
+    /* background-color:  #55a6e1; */
+    color: white;
+}
 body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background: #211578;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background: url(https://animated-gif-creator.com/images/03/office-worker-to-appear-by-yup-nguyen-for-red-cat-motion-on-dribbble_34.gif) rgba(0, 0, 0, 0.545);
+    background-size: cover;
+    background-position: center;
+    background-blend-mode:color;
 }
 
 .container {
     position: relative;
     max-width: 900px;
     width: 100%;
-    border-radius: 6px;
+    border-radius: var(--border-radius-m);
     padding: 30px;
     margin: 30px auto;
-    background-color: #fff;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.636);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+.container:hover{
+    scale: 1.1;
+    transition: all 0.3s ease-in-out;
 }
 .container header {
     position: relative;
@@ -111,7 +148,7 @@ body {
     position: relative;
     margin: 16px;
     min-height: 472px;
-    background-color: #fff;
+    background-color: tr;
 }
 .container form .job {
     margin-top: 30px;
@@ -146,49 +183,15 @@ form .fields .input-field {
     font-size: 14px;
     font-weight: 400;
     color: #333;
-    border-radius: 5px;
+    border-radius: 15px;
     border: 1px solid #aaa;
     padding: 0 15px;
     height: 42px;
     margin: 8px 0;
+    background-color: rgba(255, 255, 255, 0.636);
 }
-form .fields .in-open {
-    display: flex;
-    width: calc(100% / 3 - 15px);
-    flex-direction: column;
-    margin: 4px 0;
-}
-.in-open p {
-    font-size: 15px;
-    font-weight: 500;
-    color: #2e2e2e;
-    margin-bottom: 10px;
-}
-.in-open label {
-    margin-left: 5px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #2e2e2e; 
-}
-.in-open input {
-    margin-right: 5px;
-}
-form .fields .in-closed {
-    display: flex;
-    width: calc(100% / 3 - 15px);
-    flex-direction: column;
-    margin: 4px 0;
-}
-.in-closed label {
-    margin-left: 5px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #2e2e2e; 
-}
-.sub {
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
+.input-field input:hover {
+    background-color: rgba(51, 166, 232, 0.492);
 }
 .sub input {
     position: absolute;
@@ -198,13 +201,13 @@ form .fields .in-closed {
     outline: none;
     font-size: 16px;
     font-weight: 500;
-    color: #333;
     border-radius: 15px;
     border: 1px solid #f3efef;
-    background-color: orange;
+    background-color: #2563eb;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 .sub input:hover {
-    background-color: #e68a00;
+    background-color: rgba(255, 255, 255, 0.997);
+    color: #2563eb;
 }
