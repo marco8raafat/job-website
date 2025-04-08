@@ -9,8 +9,8 @@
 :root {
   --primary-color: #000000;
   --primary-dark: #000000;
-  --secondary-color: #a1e3f9;
-  --accent-color: #3674b5;
+  --secondary-color: #A1E3F9;
+  --accent-color: #3674B5;
   --danger-color: #ef4444;
   --success-color: #10b981;
   --light-bg: #1d73ca;
@@ -90,6 +90,8 @@ p {
 
 .btn-primary {
   background-color: var(--secondary-color);
+<<<<<<< HEAD
+=======
   color: white;
 }
 
@@ -99,12 +101,31 @@ p {
 }
 
 .btn-secondary {
+>>>>>>> b768eb935b009fdc480158c3881f762ac7168de2
   color: white;
   scale: 1.055;
 }
 
+.btn-primary:hover {
+
+  color: white;
+  scale: 1.055;
+}
+
+.btn-secondary {
+
+  color: white;
+  scale: 1.055;
+  
+}
+.nav-links .btn-secondary{
+  background-color: #2563eb;
+}
+.nav-links .btn-primary{
+  background-color: #2563eb;
+}
 .btn-secondary:hover {
-  background-color: #475569;
+  background-color:#475569;
   color: white;
 }
 
@@ -456,4 +477,8 @@ footer {
   .hero-content p {
     font-size: 0.9rem;
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b768eb935b009fdc480158c3881f762ac7168de2
