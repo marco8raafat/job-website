@@ -90,7 +90,20 @@ p {
 
 .btn-primary {
   background-color: var(--secondary-color);
+<<<<<<< HEAD
+=======
   color: white;
+}
+
+.btn-primary:hover {
+  color: white;
+  scale: 1.055;
+}
+
+.btn-secondary {
+>>>>>>> b768eb935b009fdc480158c3881f762ac7168de2
+  color: white;
+  scale: 1.055;
 }
 
 .btn-primary:hover {
@@ -464,4 +477,8 @@ footer {
   .hero-content p {
     font-size: 0.9rem;
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> b768eb935b009fdc480158c3881f762ac7168de2
