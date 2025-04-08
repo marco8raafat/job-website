@@ -220,54 +220,62 @@ color: var(--secondary-color);
     color: var(--secondary-color);
     margin-left:8px;
 }
+
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    background-color: rgba(255, 255, 255, 0.322);
-    box-shadow: var(--shadow);
-    padding: 1rem 2rem;
-  }
-  
-  /* .navbar:hover {
-    background-color: rgba(255, 255, 255, 0.997);
-    transition: all 0.3s ease-in-out;
-  } */
-  
-  .logo {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color:#2563eb;
-  }
-  
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 4.5rem;
-  }
-  
-  .nav-links a {
-    color: #1e293b;
-    font-weight: 500;
-    text-decoration: none;
-    font-size: 19px;
-  }
-  .nav-links li {
-    list-style: none;
-  }
-  
-  .nav-links a:hover {
-    color: #2563eb;
-    background-color: rgba(255, 255, 255, 0.997);
-    border-radius: 0.375rem;
-    padding: 0.5rem 1rem;
-    transition: all 0.5s ease-in-out;
-    /* scale: 1.05; */
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.322);
+  box-shadow: var(--shadow);
+  padding: 1rem 2rem;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2563eb;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.logo:hover {
+  color: #1e40af;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem; 
+  list-style: none;
+}
+
+.nav-links a {
+  color: #1e293b;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #2563eb;
+  background-color: rgba(255, 255, 255, 0.997);
+}
+.sbutton{
+  background-color: #2563eb !important;
+}
+.sbutton:hover{
+  color:#000000 !important;
+  background-color: white !important;
+}
 
   @media (max-width: 768px) {
     .navbar {
