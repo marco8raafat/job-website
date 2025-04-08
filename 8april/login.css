@@ -377,3 +377,14 @@ color: var(--secondary-color);
     position: relative;
     transform: translatey(3%);
   }
+#choice{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-top: 20px;
+    font-size: 15px;
+    color: #767575;
+    padding-left:10px;
+    border:none
+}
