@@ -90,8 +90,6 @@ p {
 
 .btn-primary {
   background-color: var(--secondary-color);
-<<<<<<< HEAD
-=======
   color: white;
 }
 
@@ -101,7 +99,6 @@ p {
 }
 
 .btn-secondary {
->>>>>>> b768eb935b009fdc480158c3881f762ac7168de2
   color: white;
   scale: 1.055;
 }
@@ -116,6 +113,7 @@ p {
 
   color: white;
   scale: 1.055;
+  background-color: #2563eb;
   
 }
 .nav-links .btn-secondary{
@@ -125,7 +123,7 @@ p {
   background-color: #2563eb;
 }
 .btn-secondary:hover {
-  background-color:#475569;
+  background-color:#4a77b7;
   color: white;
 }
 
@@ -191,14 +189,15 @@ section {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 4.5rem;
+  gap: 2.5rem;
 }
 
 .nav-links a {
   color: #1e293b;
   font-weight: 500;
   text-decoration: none;
-  font-size: 19px;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem; /* Add consistent padding */
 }
 
 .nav-links li {
@@ -209,7 +208,6 @@ section {
   color: #2563eb;
   background-color: rgba(255, 255, 255, 0.997);
   border-radius: 0.375rem;
-  padding: 0.5rem 1rem;
   transition: all 0.5s ease-in-out;
 }
 
@@ -477,8 +475,4 @@ footer {
   .hero-content p {
     font-size: 0.9rem;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> b768eb935b009fdc480158c3881f762ac7168de2
