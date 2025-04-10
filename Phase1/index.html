@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    s
     <title>Job Finder - Your Career Path</title>
     <style>
       * {
@@ -23,6 +24,7 @@
         min-height: 100vh;
         overflow: hidden;
       }
+      
 
       .bg-image {
         width: 100%;
@@ -177,6 +179,13 @@
         width: fit-content;
         transition: all 0.3s ease;
       }
+      .cta-btn::after{
+          content: '→'; 
+          color: #fffafa;
+          font-size: inherit; 
+         
+          margin-left: 4px; 
+      }
 
       .cta-btn:hover {
         background-color: #ffcc00;
@@ -184,12 +193,9 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
-      .arrow-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
 
+    
+ 
       .tagline {
         color: white;
         font-size: 0.9rem;
@@ -343,11 +349,17 @@
         </div>
 
         <div style="margin-top:15px;" class="cta-container">
-          <button class="cta-btn">
-            <a style="text-decoration: none; color:black; " href="job-list.html">Find jobs</a>
-            <span class="arrow-icon">→</span>
+          <button class="cta-btn" style="background-color: #1d4ed8;">
+            <a style="text-decoration: none; color:rgb(255, 255, 255);
+             
+            " href="job-list.html">Find jobs</a>
+            
+            
           </button>
-          <p class="tagline">
+
+        </div>
+        <div>
+            <p class="tagline">
             Navigate through countless opportunities - because every career path
             leads to new horizons.
           </p>
