@@ -405,3 +405,6 @@ color: var(--secondary-color);
 #res-but{
   margin-top:30px
 }
+.login-register p a:hover{
+    color:#080808;
+}
