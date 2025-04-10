@@ -58,14 +58,17 @@
       .nav-links {
         display: flex;
         align-items: center;
-        gap: 4.5rem;
+        gap: 2.5rem;
       }
 
       .nav-links a {
         color: #1e293b;
         font-weight: 500;
         text-decoration: none;
-        font-size: 19px;
+        font-size: 1.1rem;
+        padding: 0.5rem 1rem; 
+        border-radius: 0.75rem;
+        transition: all 0.5s ease-in-out;
       }
 
       .nav-links li {
@@ -75,9 +78,6 @@
       .nav-links a:hover {
         color: #2563eb;
         background-color: rgba(255, 255, 255, 0.997);
-        border-radius: 0.375rem;
-        padding: 0.5rem 1rem;
-        transition: all 0.5s ease-in-out;
       }
 
       .btn-primary {
@@ -193,8 +193,10 @@
       .tagline {
         color: white;
         font-size: 0.9rem;
+        font-weight: 500;
         max-width: 400px;
         line-height: 1.5;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
       }
 
       .side-image {
@@ -340,9 +342,9 @@
           </div>
         </div>
 
-        <div class="cta-container">
+        <div style="margin-top:15px;" class="cta-container">
           <button class="cta-btn">
-            Find Jobs
+            <a style="text-decoration: none; color:black; " href="job-list.html">Find jobs</a>
             <span class="arrow-icon">→</span>
           </button>
           <p class="tagline">
