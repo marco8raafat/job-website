@@ -394,3 +394,14 @@ color: var(--secondary-color);
     padding-left:10px;
     border:none
 }
+
+.paragraph-reset{
+    font-size: 15px;
+    padding-left:10px;
+    margin-top: 15px;
+    border:none;
+    color:#5c5a5a;
+}
+#res-but{
+  margin-top:30px
+}
