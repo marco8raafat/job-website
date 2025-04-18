@@ -27,13 +27,13 @@
           <div class="forms">
             <div class="login-form">
                 <span class="title">login</span>
-                <form action="#">
+                <form action="#" id="loginForm">
                     <div class="input-field">
-                        <input type="text" placeholder="Enter your username" required>
+                        <input id="login-username" type="text" placeholder="Enter your username" required>
                         <i class="uil uil-envelope-alt"></i>
                     </div>
                     <div class="input-field">
-                        <input type="password" placeholder="Enter your Password" required>
+                        <input id="login-password" type="password" placeholder="Enter your Password" required>
                         <i class="uil uil-eye-slash"></i>
                     </div>
                     <div class="forget-pass">
@@ -49,6 +49,7 @@
             </div>
           </div>
     </div>
+    <div id="toast" class="toast"></div>
     <script src="login.js" defer></script>
 </body>
 </html>

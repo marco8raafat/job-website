@@ -1,5 +1,5 @@
 const formsignup = document.getElementById("formsignup");
-let users = []; // array to store users
+let users = JSON.parse(localStorage.getItem('users')) || [];
 
 // users.push({ username: "marco", email: "marco@example.com" }); //testing 
 
@@ -35,9 +35,18 @@ formsignup.addEventListener("submit", (e) => {
   };
 
   users.push(newUser);
+  localStorage.setItem('users', JSON.stringify(users));
 //   alert("Registration successful!");
   showToast('Registration successful!');
   formsignup.reset();
+    // Redirection logic
+    setTimeout(() => {
+        if (userType === 'option1') {
+          window.location.href = 'job-list.html';
+        } else if (userType === 'option2') {
+          window.location.href = 'company-dashboard.html';
+        }
+      }, 1000);
 });
 
 function validateUsername(username) {
