@@ -12,9 +12,6 @@
   --secondary-color: #55a6e1;
   --light-pink-color: #faf4f5;
   --medium-gray-color: #ccc;
-  --success-color: #27ae60; /* Green */
-  --danger-color: #e74c3c; /* Red */
-  --warning-color: #f1c40f; /* Yellow */
 
   /* Font size */
   --font-size-s: 0.9rem;
@@ -410,31 +407,4 @@ color: var(--secondary-color);
 }
 .login-register p a:hover{
     color:#080808;
-}
-.error-message {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 5px;
-  margin-left: 15px;
-}
-.rulesPass{
-  font-size: 15px;
-  padding-left:10px;
-  margin-top: 15px;
-  border:none;
-  color:#5c5a5a;
-  margin-left: 15px;
-}
-
-.toast {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  color: white;
-  display: none;
-  animation: slideIn 0.25s ease;
-  font-weight: 500;
-  z-index: 1000;
 }

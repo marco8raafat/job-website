@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Job Finder - Your Career Path</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="bg-image"></div>
+
+      <nav class="navbar">
+        <div class="logo">CareerNest</div>
+        <button class="hamburger" id="hamburger">☰</button>
+        <ul class="nav-links" id="navMenu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="job-list.html">Browse Jobs</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="signup.html" class="btn-primary">Sign Up</a></li>
+        </ul>
+      </nav>
+
+      <div class="content">
+        <div class="hero">
+          <h1 class="country-name">CareerNest</h1>
+
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-number">10k+</span>
+              <span class="stat-text">Many Applicants</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">500+</span>
+              <span class="stat-text">Custom Jobs</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">5k+</span>
+              <span class="stat-text">Successfully Applied</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 15px" class="cta-container">
+          <button class="cta-btn" style="background-color: #1d4ed8">
+            <a
+              style="text-decoration: none; color: rgb(255, 255, 255)"
+              href="job-list.html"
+              >Find jobs</a
+            >
+          </button>
+        </div>
+        <div>
+          <p class="tagline">
+            Navigate through countless opportunities - because every career path
+            leads to new horizons.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mobile menu toggle
+      const hamburger = document.getElementById("hamburger");
+      const navMenu = document.getElementById("navMenu");
+
+      hamburger.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>

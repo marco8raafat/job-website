@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Jobs - CareerNest</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="jobs.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">CareerNest</div>
+        <ul class="nav-links">
+          <li><a href="company-dashboard.html">Dashboard</a></li>
+          <li><a href="company-jobs.html">My Jobs</a></li>
+          <li><a href="add-job.html">Post Job</a></li>
+          <li><a href="index.html" class="btn-secondary">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="jobs-header">
+        <h1>My Job Postings</h1>
+        <a href="add-job.html" class="btn-primary">Post New Job</a>
+      </section>
+
+      <section class="job-filters">
+        <div class="filter-group">
+          <label for="status-filter">Filter by Status:</label>
+          <select id="status-filter">
+            <option value="all">All Jobs</option>
+            <option value="open">Open</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="jobs-container">
+        <div class="job-list">
+          <div class="job-card">
+            <div class="job-header">
+              <h3>Frontend Developer</h3>
+              <span class="job-status open">Open</span>
+            </div>
+            <p class="job-info">$80,000 - $100,000 • 2-4 Years Experience</p>
+            <p class="job-info">Posted: March 28, 2025</p>
+            <p class="job-info">Applications: 12</p>
+            <div class="job-actions">
+              <a href="job-details.html" class="btn-primary">View</a>
+              <a href="edit-job.html" class="btn-secondary">Edit</a>
+              <a href="#" class="btn-danger">Delete</a>
+            </div>
+          </div>
+
+          <div class="job-card">
+            <div class="job-header">
+              <h3>UX Designer</h3>
+              <span class="job-status open">Open</span>
+            </div>
+            <p class="job-info">$75,000 - $95,000 • 3-5 Years Experience</p>
+            <p class="job-info">Posted: March 25, 2025</p>
+            <p class="job-info">Applications: 8</p>
+            <div class="job-actions">
+              <a href="job-details.html" class="btn-primary">View</a>
+              <a href="edit-job.html" class="btn-secondary">Edit</a>
+              <a href="#" class="btn-danger">Delete</a>
+            </div>
+          </div>
+
+          <div class="job-card">
+            <div class="job-header">
+              <h3>Full Stack Developer</h3>
+              <span class="job-status closed">Closed</span>
+            </div>
+            <p class="job-info">$90,000 - $120,000 • 4+ Years Experience</p>
+            <p class="job-info">Posted: March 10, 2025</p>
+            <p class="job-info">Applications: 20</p>
+            <div class="job-actions">
+              <a href="job-details.html" class="btn-primary">View</a>
+              <a href="edit-job.html" class="btn-secondary">Edit</a>
+              <a href="#" class="btn-danger">Delete</a>
+            </div>
+          </div>
+
+          <div class="job-card">
+            <div class="job-header">
+              <h3>Product Manager</h3>
+              <span class="job-status closed">Closed</span>
+            </div>
+            <p class="job-info">$100,000 - $130,000 • 5+ Years Experience</p>
+            <p class="job-info">Posted: February 15, 2025</p>
+            <p class="job-info">Applications: 15</p>
+            <div class="job-actions">
+              <a href="job-details.html" class="btn-primary">View</a>
+              <a href="edit-job.html" class="btn-secondary">Edit</a>
+              <a href="#" class="btn-danger">Delete</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 JobSeek. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
