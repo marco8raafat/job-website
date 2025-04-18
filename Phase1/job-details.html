@@ -38,174 +38,177 @@
           </div>
         </div>
 
-        
         <div id="popup" class="popup">
           <div class="popup-content">
-              <span class="close" onclick="document.getElementById('popup').style.display='none'">&times;</span>
-              <h2>Application Form</h2>
-              <p>Please fill out your details.</p>
-              
-              <form class="application-form">
-                  <div class="form-group">
-                      <label for="name">Full Name</label>
-                      <input type="text" id="name" name="name" required>
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="email">Email</label>
-                      <input type="email" id="email" name="email" required>
-                  </div>
-      
-                  <div class="form-group">
-                      <label for="resume">Resume</label>
-                      <input type="file" id="resume" name="resume" required>
-                  </div>
-      
-                  <div class="form-buttons">
-                      <button type="submit" class="btn-submit">Submit</button>
-                      <button type="button" class="btn-cancel" onclick="document.getElementById('popup').style.display='none'">Cancel</button>
-                  </div>
-              </form>
+            <span
+              class="close"
+              onclick="document.getElementById('popup').style.display='none'"
+              >&times;</span
+            >
+            <h2>Application Form</h2>
+            <p>Please fill out your details.</p>
+
+            <form class="application-form">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+
+              <div class="form-group">
+                <label for="resume">Resume</label>
+                <input type="file" id="resume" name="resume" required />
+              </div>
+
+              <div class="form-buttons">
+                <button type="submit" class="btn-submit">Submit</button>
+                <button
+                  type="button"
+                  class="btn-cancel"
+                  onclick="document.getElementById('popup').style.display='none'"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
-      </div>
-      
-      <style>
-      /* Your existing popup styles */
-      
-      /* New form styles */
-      .application-form {
-          margin-top: 20px;
-      }
-      
-      .form-group {
-          margin-bottom: 20px;
-      }
-      
-      label {
-          display: block;
-          margin-bottom: 8px;
-          font-weight: 500;
-          color: #333;
-      }
-      
-      input[type="text"],
-      input[type="email"] {
-          width: 100%;
-          padding: 10px;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          font-size: 14px;
-      }
-      
-      input[type="file"] {
-          width: 100%;
-          padding: 8px 0;
-      }
-      
-      input:focus {
-          border-color: #007bff;
-          outline: none;
-      }
-      
-      .form-buttons {
-          display: flex;
-          gap: 10px;
-          margin-top: 30px;
-      }
-      
-      .btn-submit {
-          padding: 10px 20px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          flex: 1;
-      }
-      
-      .btn-cancel {
-          padding: 10px 20px;
-          background-color: #dc3545;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          flex: 1;
-      }
-      
-      .btn-submit:hover {
-          background-color: #1d4ed8;
-      }
-      
-      .btn-cancel:hover {
-          background-color: #c82333;
-      }
-      </style>
-        
+        </div>
+
         <style>
-        .apply-section {
-          text-align: center;
-          margin: 20px;
-        }
-        
-        .popup {
-          display: none;
-          position: fixed;
-          z-index: 1000;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          justify-content: center;
-          align-items: center;
-        }
-        
-        .popup-content {
-          background-color: white;
-          padding: 30px;
-          width: 400px;
-          border-radius: 10px;
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-          position: relative;
-          animation: popupAnimation 0.3s ease-out;
-        }
-        
-        
-        
-        
-        .close {
-          position: absolute;
-          right: 15px;
-          top: 10px;
-          font-size: 24px;
-          font-weight: bold;
-          cursor: pointer;
-          color: #000000;
-        }
-        
-      
-        
-        .btn-primary {
-          padding: 12px 24px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 16px;
-          transition: background-color 0.2s;
-        }
-        
-        
-        h2 {
-          margin-top: 0;
-          color: #333;
-        }
-        
-        p {
-          color: #666;
-        }
+          /* Your existing popup styles */
+
+          /* New form styles */
+          .application-form {
+            margin-top: 20px;
+          }
+
+          .form-group {
+            margin-bottom: 20px;
+          }
+
+          label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+          }
+
+          input[type="text"],
+          input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+          }
+
+          input[type="file"] {
+            width: 100%;
+            padding: 8px 0;
+          }
+
+          input:focus {
+            border-color: #007bff;
+            outline: none;
+          }
+
+          .form-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+          }
+
+          .btn-submit {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            flex: 1;
+          }
+
+          .btn-cancel {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            flex: 1;
+          }
+
+          .btn-submit:hover {
+            background-color: #1d4ed8;
+          }
+
+          .btn-cancel:hover {
+            background-color: #c82333;
+          }
+        </style>
+
+        <style>
+          .apply-section {
+            text-align: center;
+            margin: 20px;
+          }
+
+          .popup {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+          }
+
+          .popup-content {
+            background-color: white;
+            padding: 30px;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            animation: popupAnimation 0.3s ease-out;
+          }
+
+          .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #000000;
+          }
+
+          .btn-primary {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s;
+          }
+
+          h2 {
+            margin-top: 0;
+            color: #333;
+          }
+
+          p {
+            color: #666;
+          }
         </style>
 
         <div class="job-description">
@@ -251,8 +254,12 @@
         </div>
 
         <div class="apply-section">
-          <button class="btn-primary btn-large" onclick="document.getElementById('popup').style.display='flex'">Apply
-            Now</button>
+          <button
+            class="btn-primary btn-large"
+            onclick="document.getElementById('popup').style.display='flex'"
+          >
+            Apply Now
+          </button>
         </div>
       </section>
     </main>
@@ -261,4 +268,5 @@
       <p>&copy; 2025 JobSeek. All rights reserved.</p>
     </footer>
   </body>
+  <script src="job-details.js"></script>
 </html>
