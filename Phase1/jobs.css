@@ -37,10 +37,17 @@
 }
 
 .company-name {
-  color: var(--secondary-color);
-  font-weight: 500;
+  color: #2563eb;
+  font-weight: 700;
 }
-
+.company-name1 {
+  color: #2563eb;
+  font-weight: 700;
+}
+.user-name {
+  color: #2563eb;
+  font-weight: 700;
+}
 .job-info {
   color: var(--text-light);
   margin-bottom: 1rem;

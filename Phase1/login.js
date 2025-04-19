@@ -27,8 +27,9 @@ loginForm.addEventListener('submit', (e) => {
     showToast(`Welcome back, ${username}!`, 'success');
     
     setTimeout(() => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
         if (user.userType === 'option1') {
-            window.location.href = 'job-list.html';
+            window.location.href = 'user-dashboard.html';
         } else if (user.userType === 'option2') {
             window.location.href = 'company-dashboard.html';
         }

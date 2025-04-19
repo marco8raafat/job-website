@@ -95,7 +95,20 @@
     </main>
 
     <footer>
-      <p>&copy; 2025 JobSeek. All rights reserved.</p>
+      <p>&copy; 2025 CareerSeek. All rights reserved.</p>
     </footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+          const userNameElement = document.querySelector('.user-name');
+          
+          if (currentUser && currentUser.username) {
+              userNameElement.textContent = currentUser.username;
+          } else {
+              // Optional fallback if no user is logged in
+              userNameElement.textContent = 'Guest';
+          }
+      });
+  </script>
   </body>
 </html>

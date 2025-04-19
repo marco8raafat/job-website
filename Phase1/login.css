@@ -110,12 +110,13 @@ width: 100%;
 background-color: rgba(255, 255, 255, 0.636);
 box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
 border-radius: var(--border-radius-m);
+z-index: 100;
 }
 .container .forms{
     padding: 30px;
 }
 .container:hover{
-  scale: 1.3;
+  /* scale: 1.3; */
   transition: all 0.3s ease-in-out;
 }
 
@@ -381,7 +382,7 @@ color: var(--secondary-color);
     }
   }
   #container-signup:hover{
-    scale: 1.1;
+    /* scale: 1.1; */
     transition: all 0.3s ease-in-out;
     margin-top: 45px;
     position: relative;
@@ -438,4 +439,17 @@ color: var(--secondary-color);
   animation: slideIn 0.25s ease;
   font-weight: 500;
   z-index: 1000;
+}
+footer {
+  background-color: #dbe0e9;
+  color: #000000;
+  text-align: center;
+  padding: 1.5rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  /* margin-top: 2rem; */
 }

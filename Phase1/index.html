@@ -59,6 +59,9 @@
         </div>
       </div>
     </div>
+    <footer>
+      <p>&copy; 2025 CareerNest. All rights reserved.</p>
+    </footer>
 
     <script>
       // Mobile menu toggle
@@ -68,6 +71,92 @@
       hamburger.addEventListener("click", () => {
         navMenu.classList.toggle("active");
       });
+
+        // Animated number counters for stats
+  function animateStats() {
+    const counters = document.querySelectorAll('.stat-number');
+    const speed = 200; // Lower = faster
+    
+    counters.forEach(counter => {
+      const animate = () => {
+        const value = +counter.getAttribute('data-target');
+        const data = +counter.innerText.replace('+', '');
+        
+        const time = value / speed;
+        if(data < value) {
+            counter.innerText = Math.ceil(data + time) + "+";
+            setTimeout(animate, 1);
+        } else {
+            counter.innerText = value + "+";
+        }
+      }
+      animate();
+    });
+  }
+
+  // Parallax effect for background
+  function addParallax() {
+    const bg = document.querySelector('.bg-image');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      bg.style.transform = `translate3d(0, ${scrolled * 0.4}px, 0)`;
+    });
+  }
+
+  // Animate elements on scroll
+  function setupScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.country-name, .stats, .cta-container, .tagline')
+            .forEach(el => observer.observe(el));
+  }
+
+  // Ripple effect for buttons
+  function addRippleEffect() {
+    document.addEventListener('click', function(e) {
+      const target = e.target.closest('.cta-btn, .btn-primary');
+      if(target) {
+        const ripple = document.createElement('div');
+        ripple.style.cssText = `
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background: rgba(255, 255, 255, 0.4);
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          animation: ripple 0.6s linear;
+        `;
+        
+        const rect = target.getBoundingClientRect();
+        ripple.style.left = `${e.clientX - rect.left}px`;
+        ripple.style.top = `${e.clientY - rect.top}px`;
+        
+        target.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 600);
+      }
+    });
+  }
+
+  // Initialize all animations
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set data targets for counters
+    document.querySelectorAll('.stat-number').forEach((el, index) => {
+      const values = [10000, 500, 5000];
+      el.setAttribute('data-target', values[index]);
+      el.textContent = '0+';
+    });
+
+    animateStats();
+    addParallax();
+    setupScrollAnimations();
+    addRippleEffect();
+  });
     </script>
   </body>
 </html>

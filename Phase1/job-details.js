@@ -162,3 +162,13 @@ function deleteJob(jobId) {
     location.reload();
   }
 }
+document.addEventListener('DOMContentLoaded', function() {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const userNameElement = document.querySelector('.company-name1');
+  
+  if (currentUser && currentUser.username) {
+      userNameElement.textContent = currentUser.username;
+  } else {
+      userNameElement.textContent = 'Guest';
+  }
+});

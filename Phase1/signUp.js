@@ -42,7 +42,7 @@ formsignup.addEventListener("submit", (e) => {
     // Redirection logic
     setTimeout(() => {
         if (userType === 'option1') {
-          window.location.href = 'job-list.html';
+          window.location.href = 'user-dashboard.html';
         } else if (userType === 'option2') {
           window.location.href = 'company-dashboard.html';
         }

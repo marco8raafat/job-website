@@ -334,10 +334,10 @@ select#status-filter {
 /* Footer */
 footer {
   background-color: var(--dark-bg);
-  color: var(--text-white);
+  color: black;
   text-align: center;
   padding: 1.5rem;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
 }
 
 /* Responsive Styles */
