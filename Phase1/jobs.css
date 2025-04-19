@@ -218,3 +218,37 @@ label{
 } 
 
 }
+/* Status Filter Styles */
+.filter-group {
+  margin-bottom: 20px;
+}
+
+#status-filter {
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  margin-left: 10px;
+}
+
+/* Job Status Indicators */
+.job-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.job-status.open {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.job-status.closed {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Hidden state for filtered jobs */
+.job-card.hidden {
+  display: none;
+}
