@@ -99,33 +99,24 @@
     </footer>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-          const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-          const userNameElement = document.querySelector('.user-name');
-          
-          if (currentUser && currentUser.username) {
-              userNameElement.textContent = currentUser.username;
-          } else {
-              // Optional fallback if no user is logged in
-              userNameElement.textContent = 'Guest';
-          }
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const userNameElement = document.querySelector('.user-name');
+        const applicationsStat = document.querySelector('.dashboard-stats .stat-card:nth-child(1) .stat-value');
+    
+        if (currentUser && currentUser.username) {
+          userNameElement.textContent = currentUser.username;
+        } else {
+          userNameElement.textContent = 'Guest';
+        }
+    
+        // Load and show application count
+        const stats = JSON.parse(localStorage.getItem("userStats")) || {};
+        const count = stats[currentUser?.email]?.applicationCount || 0;
+        if (applicationsStat) {
+          applicationsStat.textContent = count;
+        }
       });
-  </script>
+    </script>
+    
   </body>
 </html>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    const userNameElement = document.querySelector(".user-name");
-    if (currentUser && userNameElement) {
-      userNameElement.textContent = currentUser.username || "Guest";
-    }
-
-    const applications = JSON.parse(localStorage.getItem("applications")) || [];
-    const userApplications = applications.filter(app => app.email === currentUser?.email);
-
-    const applicationCountElement = document.querySelectorAll(".stat-card .stat-value")[0];
-    if (applicationCountElement) {
-      applicationCountElement.textContent = userApplications.length;
-    }
-  });
-</script>

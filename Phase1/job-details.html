@@ -268,5 +268,81 @@
       <p>&copy; 2025 JobSeek. All rights reserved.</p>
     </footer>
   </body>
-  <script src="job-details.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const applyButton = document.querySelector(".apply-section button");
+  const popup = document.getElementById("popup");
+  const cancelButton = document.querySelector(".btn-cancel");
+  const form = document.querySelector(".application-form");
+
+  applyButton.addEventListener("click", () => {
+    popup.style.display = "flex";
+  });
+
+  cancelButton.addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const resume = document.getElementById("resume").files[0];
+
+    if (!name || !email || !resume) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (!currentUser || currentUser.email !== email) {
+      alert("Please use the logged-in email for the application.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function () {
+      // Load all applications
+      const allApplications = JSON.parse(localStorage.getItem("applications")) || [];
+
+      const newApplication = {
+        id: Date.now(),
+        jobTitle: "Frontend Developer",
+        companyName: "Tech Solutions Inc.",
+        applicantName: name,
+        email: email,
+        resumeData: reader.result,
+        appliedAt: new Date().toISOString(),
+        status: "pending"
+      };
+
+      // Save new application
+      allApplications.push(newApplication);
+      localStorage.setItem("applications", JSON.stringify(allApplications));
+
+      // Load user-specific stats and increment count
+      const stats = JSON.parse(localStorage.getItem("userStats")) || {};
+
+      if (!stats[currentUser.email]) {
+        stats[currentUser.email] = { applicationCount: 0 };
+      }
+
+      stats[currentUser.email].applicationCount += 1;
+      localStorage.setItem("userStats", JSON.stringify(stats));
+
+      // Finish
+      alert("You applied successfully!");
+      form.reset();
+      popup.style.display = "none";
+      window.location.href = "user-dashboard.html";
+    };
+
+    reader.readAsDataURL(resume);
+  });
+});
+
+
+
+  </script>
 </html>
