@@ -176,25 +176,23 @@
 .job-description ul li {
   margin-bottom: 0.5rem;
 }
-.search-form{
+.search-form {
   display: flex;
-  justify-content:flex-start;
+  justify-content: flex-start;
   margin-bottom: 2rem;
   gap: 1rem;
 }
-.search-form .search-input .Search{
-  border-radius: 25px
-  ;
+.search-form .search-input .Search {
+  border-radius: 25px;
   padding: 0.5rem 1rem;
 }
-.search-form .search_button{
+.search-form .search_button {
   background: none;
   border: none;
   outline: none;
   cursor: pointer;
-  font-size:  30px;
+  font-size: 30px;
   margin: 2px;
- 
 }
 /* Responsive Job Styles */
 @media (max-width: 768px) {
@@ -215,15 +213,14 @@
     flex-direction: column;
     gap: 0.5rem;
   }
-.filter-group .status-filter+label{
-  margin-left: 0.5rem;
-  color:salmon;
-}
-label{
-  margin-left: 0.5rem;
+  .filter-group .status-filter + label {
+    margin-left: 0.5rem;
     color: salmon;
-} 
-
+  }
+  label {
+    margin-left: 0.5rem;
+    color: salmon;
+  }
 }
 /* Status Filter Styles */
 .filter-group {

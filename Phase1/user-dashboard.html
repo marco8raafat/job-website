@@ -42,7 +42,7 @@
       </section>
 
       <section class="recent-applications">
-        <h2>Recent Applications</h2>
+        <h2>My Applications</h2>
         <div class="job-list">
           <div class="job-card">
             <div class="job-header">
@@ -65,9 +65,9 @@
           </div>
         </div>
 
-        <div class="view-all">
+        <!-- <div class="view-all">
           <a href="my-applications.html">View All Applications</a>
-        </div>
+        </div> -->
       </section>
 
       <section class="job-recommendations">
@@ -98,17 +98,19 @@
       <p>&copy; 2025 CareerSeek. All rights reserved.</p>
     </footer>
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        const userNameElement = document.querySelector('.user-name');
-        const applicationsStat = document.querySelector('.dashboard-stats .stat-card:nth-child(1) .stat-value');
-    
+      document.addEventListener("DOMContentLoaded", function () {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const userNameElement = document.querySelector(".user-name");
+        const applicationsStat = document.querySelector(
+          ".dashboard-stats .stat-card:nth-child(1) .stat-value"
+        );
+
         if (currentUser && currentUser.username) {
           userNameElement.textContent = currentUser.username;
         } else {
-          userNameElement.textContent = 'Guest';
+          userNameElement.textContent = "Guest";
         }
-    
+
         // Load and show application count
         const stats = JSON.parse(localStorage.getItem("userStats")) || {};
         const count = stats[currentUser?.email]?.applicationCount || 0;
@@ -117,6 +119,8 @@
         }
       });
     </script>
-    
   </body>
+  <script src="user-dashboaed.js" defer></script>
+
+  <script src="job-details.js" defer></script>
 </html>
