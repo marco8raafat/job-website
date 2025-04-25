@@ -117,10 +117,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="job-meta">
               <p class="salary">${job.salary}</p>
               <p class="experience">${
-                job.year_of_experience
+          job.year_of_experience
               } Years Experience</p>
               <p class="date">Posted: ${
-                job.posted_date || new Date().toLocaleDateString()
+          job.posted_date || new Date().toLocaleDateString()
               }</p>
             </div>
           </div>
@@ -129,18 +129,28 @@ document.addEventListener("DOMContentLoaded", function () {
             <h2>Job Description</h2>
             <p>${job.description}</p>
           </div>
+          <div class="cv-input">
+          <h3>Input your CV here:</h3>
+          <input type="file" id="cvInput" accept=".pdf,.doc,.docx" required />
+          <p class="cv-note">Please upload your CV in PDF or Word format.</p>
+          </div>
 
           <div class="apply-section">
             <button id="applyBtn" class="btn-primary btn-large">Apply Now</button>
           </div>
-
-         
           </div>
         `;
 
-        const applyBtn = document.getElementById("applyBtn");
-        if (applyBtn) {
-          applyBtn.addEventListener("click", function () {
+        const applyBtn1 = document.getElementById("applyBtn");
+        const cvInput = document.getElementById("cvInput");
+
+        if (applyBtn1 && cvInput) {
+          applyBtn1.addEventListener("click", function () {
+            if (!cvInput.files.length) {
+              alert("Please upload your CV before applying for this job.");
+              return;
+            }
+
             const currentUser = JSON.parse(localStorage.getItem("currentUser"));
             if (!currentUser) {
               alert("Please log in to apply for this job.");
