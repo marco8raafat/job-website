@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
         jobDetailsContainer.innerHTML = `
           <div class="job-header-details">
             <div class="back-link">
-              <a href="job-list.html">← Back to Jobs</a>
+            <a href="#" id="backLink">← Back to Jobs</a>
             </div>
             <h1>${job.job_title}</h1>
             <div class="company-info">
@@ -140,6 +140,13 @@ document.addEventListener("DOMContentLoaded", function () {
           </div>
           </div>
         `;
+        const backLink = document.getElementById("backLink");
+        if (backLink) {
+          backLink.addEventListener("click", function (e) {
+            e.preventDefault(); // Prevent default anchor behavior
+            window.history.back(); // Go back one page
+          });
+        }
 
         const applyBtn1 = document.getElementById("applyBtn");
         const cvInput = document.getElementById("cvInput");
