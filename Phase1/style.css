@@ -1,9 +1,10 @@
 /* Reset and base styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Miniver&family=Poppins:ital,wght@0,400;0,600;0,700;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box; /* The box-sizing property allows us to include padding and border in the element's total width and height*/
+font-family: "Poppins", sans-serif;
 }
 
 :root {
@@ -26,7 +27,12 @@
 
 body {
   color: #333;
-  background-image: url(light-picton-blue-rough-abstract-background-design_851755-197559.png);
+  background: #0030cc;
+  background: linear-gradient(
+    0deg,
+    rgb(0, 99, 204) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
   line-height: 1.6;
   background-size: cover;
   background-attachment: fixed;
