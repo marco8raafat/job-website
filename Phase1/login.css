@@ -2,9 +2,9 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
+  box-sizing: border-box; /* The box-sizing property allows us to include padding and border in the element's total width and height*/
+  font-family: "Poppins", sans-serif;
+  }
 :root {
   --white-color: #fff;
   --dark-color: #252525;
