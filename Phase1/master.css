@@ -38,54 +38,46 @@
     0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+/* Navigation styles */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    padding: 1rem 2rem;
     background-color: rgba(255, 255, 255, 0.322);
     box-shadow: var(--shadow);
-    padding: 1rem 2rem;
-    z-index: 1000;
-  }
-  
-  .logo {
+    color: white;
+}
+
+.logo {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #2563eb;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .logo:hover {
-    color: #1e40af;
+    color:#2563eb;
   }
   
   .nav-links {
     display: flex;
     align-items: center;
-    gap: 2.5rem; 
-    list-style: none;
+    gap: 4.5rem;
   }
   
   .nav-links a {
     color: #1e293b;
     font-weight: 500;
     text-decoration: none;
-    font-size: 1.1rem;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    background-color: transparent;
-    transition: all 0.3s ease-in-out;
+    font-size: 19px;
+  }
+  .nav-links li {
+    list-style: none;
   }
   
   .nav-links a:hover {
     color: #2563eb;
     background-color: rgba(255, 255, 255, 0.997);
-  }
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.5s ease-in-out;
+}
 .btn-secondary, .btn-primary{
     display: inline-block;
     padding: 0.6rem 1.2rem;
@@ -97,12 +89,12 @@
     border: none;
 }
 .btn-secondary{
-    background-color: #2563eb !important;
+    background-color: #2563eb;
     color: white;
 }
 .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.997)!important;
-    color: #2563eb;
+    background-color: #1d4ed8;
+    color: white;
     scale: 1.2;
 }
 .btn-primary{
@@ -116,7 +108,7 @@ body {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    background: url(https://animated-gif-creator.com/images/03/office-worker-to-appear-by-yup-nguyen-for-red-cat-motion-on-dribbble_34.gif) rgba(0, 0, 0, 0.545);
+    background: url(office-worker-to-appear-by-yup-nguyen-for-red-cat-motion-on-dribbble_34.gif) rgba(0, 0, 0, 0.545);
     background-size: cover;
     background-position: center;
     background-blend-mode:color;
@@ -127,11 +119,10 @@ body {
     max-width: 900px;
     width: 100%;
     border-radius: var(--border-radius-m);
-    padding: 28px;
+    padding: 30px;
     margin: 30px auto;
     background-color: rgba(255, 255, 255, 0.636);
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-    top: 76px;
 }
 .container:hover{
     scale: 1.1;
@@ -157,45 +148,37 @@ body {
     position: relative;
     margin: 16px;
     min-height: 472px;
-    background-color: transparent;
+    background-color: tr;
 }
 .container form .job {
     margin-top: 30px;
+}
+.container form .title {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 6px 0;
+    color: #333;
 }
 .container form .fields {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
 }
-form .fields .input-field1,
-             .input-field2, 
-             .input-field3, 
-             .input-field4, 
-             .input-field5, 
-             .input-field6 {
-    flex: 1 1 calc(33.33% - 20px); 
-    min-width: 250px;
+form .fields .input-field {
     display: flex;
+    width: calc(100% / 3 - 15px);
     flex-direction: column;
+    margin: 4px 0;
 }
-.input-field1 label,
-.input-field2 label,
-.input-field3 label,
-.input-field4 label,
-.input-field5 label,
-.input-field6 label {
+.input-field label {
     font-size: 15px;
     font-weight: 500;
     color: #2e2e2e;
 }
-.input-field1 input,
-.input-field2 input,
-.input-field3 input,
-.input-field4 input,
-.input-field5 input,
-.input-field6 input {
+.input-field input {
     outline: none;
     font-size: 14px;
     font-weight: 400;
@@ -207,26 +190,8 @@ form .fields .input-field1,
     margin: 8px 0;
     background-color: rgba(255, 255, 255, 0.636);
 }
-.input-field1 input:hover,
-.input-field2 input:hover,
-.input-field3 input:hover,
-.input-field4 input:hover,
-.input-field5 input:hover,
-.input-field6 input:hover,
-textarea:hover {
+.input-field input:hover {
     background-color: rgba(51, 166, 232, 0.492);
-}
-textarea {
-    outline: none;
-    font-size: 14px;
-    font-weight: 400;
-    color: #333;
-    border-radius: 15px;
-    border: 1px solid #aaa;
-    padding: 0 15px;
-    height: 42px;
-    margin: 8px 0;
-    background-color: rgba(255, 255, 255, 0.636);
 }
 .sub input {
     position: absolute;
@@ -237,7 +202,7 @@ textarea {
     font-size: 16px;
     font-weight: 500;
     border-radius: 15px;
-    border: none;
+    border: 1px solid #f3efef;
     background-color: #2563eb;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -245,9 +210,4 @@ textarea {
 .sub input:hover {
     background-color: rgba(255, 255, 255, 0.997);
     color: #2563eb;
-}
-@media (max-width: 768px) {
-    .input-field {
-      flex: 1 1 100%;
-    }
 }
