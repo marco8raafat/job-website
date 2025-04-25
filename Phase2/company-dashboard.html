@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Jobs - CareerNest</title>
+    <title>Company Dashboard - JobSeek</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="jobs.css" />
   </head>
@@ -21,34 +21,36 @@
     </header>
 
     <main>
-      <section class="jobs-header">
-        <h1>My Job Postings</h1>
+      <section class="dashboard-header">
+        <h1>Welcome, <span class="company-name1">Company Name</span></h1>
         <a href="add-job.html" class="btn-primary">Post New Job</a>
       </section>
 
-      <section class="job-filters">
-        <div class="filter-group" style=" background-color:  #FFC65A;">
-          <label for="status-filter">Filter by Status:</label>
-          <select id="status-filter" style="background-color: #FFC65A;">
-            <option value="all">All Jobs</option>
-            <option value="open">Open</option>
-            <option value="closed">Closed</option>
-          </select>
+      <section class="dashboard-stats">
+        <div class="stat-card">
+          <h3>Active Jobs</h3>
+          <p class="stat-value">5</p>
+        </div>
+        <div class="stat-card">
+          <h3>Total Applications</h3>
+          <p class="stat-value">27</p>
+        </div>
+        <div class="stat-card">
+          <h3>Recent Jobs</h3>
+          <p class="stat-value">3</p>
         </div>
       </section>
 
-      <section class="jobs-container">
+      <section class="recent-jobs">
+        <h2>Recent Job Postings</h2>
         <div class="job-list">
-          <div class="job-card">
+          <!-- <div class="job-card">
             <div class="job-header">
               <h3>Frontend Developer</h3>
               <span class="job-status open">Open</span>
             </div>
             <p class="job-info">$80,000 - $100,000 • 2-4 Years Experience</p>
-            <p class="job-info">Posted: March 28, 2025</p>
-            <p class="job-info">Applications: 12</p>
             <div class="job-actions">
-              <a href="job-details.html" class="btn-primary">View</a>
               <a href="edit-job.html" class="btn-secondary">Edit</a>
               <a href="#" class="btn-danger">Delete</a>
             </div>
@@ -60,10 +62,7 @@
               <span class="job-status open">Open</span>
             </div>
             <p class="job-info">$75,000 - $95,000 • 3-5 Years Experience</p>
-            <p class="job-info">Posted: March 25, 2025</p>
-            <p class="job-info">Applications: 8</p>
             <div class="job-actions">
-              <a href="job-details.html" class="btn-primary">View</a>
               <a href="edit-job.html" class="btn-secondary">Edit</a>
               <a href="#" class="btn-danger">Delete</a>
             </div>
@@ -75,35 +74,22 @@
               <span class="job-status closed">Closed</span>
             </div>
             <p class="job-info">$90,000 - $120,000 • 4+ Years Experience</p>
-            <p class="job-info">Posted: March 10, 2025</p>
-            <p class="job-info">Applications: 20</p>
             <div class="job-actions">
-              <a href="job-details.html" class="btn-primary">View</a>
               <a href="edit-job.html" class="btn-secondary">Edit</a>
               <a href="#" class="btn-danger">Delete</a>
             </div>
-          </div>
+          </div> -->
+        </div>
 
-          <div class="job-card">
-            <div class="job-header">
-              <h3>Product Manager</h3>
-              <span class="job-status closed">Closed</span>
-            </div>
-            <p class="job-info">$100,000 - $130,000 • 5+ Years Experience</p>
-            <p class="job-info">Posted: February 15, 2025</p>
-            <p class="job-info">Applications: 15</p>
-            <div class="job-actions">
-              <a href="job-details.html" class="btn-primary">View</a>
-              <a href="edit-job.html" class="btn-secondary">Edit</a>
-              <a href="#" class="btn-danger">Delete</a>
-            </div>
-          </div>
+        <div class="view-all">
+          <a href="company-jobs.html">View All Jobs</a>
         </div>
       </section>
     </main>
-    <script src="Filtering.js"></script>
+
     <footer>
       <p>&copy; 2025 CareerNest. All rights reserved.</p>
     </footer>
   </body>
+  <script src="job-details.js"></script>
 </html>
