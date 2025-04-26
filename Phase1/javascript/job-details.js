@@ -18,9 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
             0,
             150
           )}...</p>
-          <a href="job-details.html?id=${
-            job.id
-          }" class="btn-primary">View Details</a>
+          <div class="job-buttons">
+            <a href="job-details.html?id=${job.id}" class="btn-primary">View Details</a>
+            <button onclick="saveJob(${job.id})" class="btn-primary">Save</button>
+          </div>
         </div>
       `;
       userJobList.insertAdjacentHTML("beforeend", jobCard);
@@ -266,4 +267,30 @@ function showToast(message, type = "success") {
   setTimeout(() => {
     toast.style.display = "none";
   }, 3000);
+}
+
+function saveJob(jobId) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+        showToast("Please log in to save jobs", "warning");
+        return;
+    }
+
+    const savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
+    const alreadySaved = savedJobs.some(saved => saved.jobId === jobId && saved.userId === currentUser.id);
+
+    if (alreadySaved) {
+        showToast("Job already saved!", "warning");
+        return;
+    }
+
+    savedJobs.push({
+        jobId: jobId,
+        userId: currentUser.id,
+        savedAt: new Date().toISOString()
+    });
+
+    localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+    // console.log('Saved Jobs:', savedJobs); // For debugging purposes
+    showToast("Job saved successfully!", "success");
 }
