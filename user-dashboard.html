@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard - CareerNest</title>
+    <link rel="stylesheet" href="..//css/style.css" />
+    <link rel="stylesheet" href="..//css/jobs.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo">CareerNest</div>
+        <ul class="nav-links">
+          <li><a href="user-dashboard.html">Dashboard</a></li>
+          <li><a href="job-list.html">Browse Jobs</a></li>
+          <!-- <li><a href="my-applications.html">My Applications</a></li> -->
+          <li><a href="index.html" class="btn-secondary">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="dashboard-header">
+        <h1>Welcome, <span class="user-name">Username</span></h1>
+        <a href="job-list.html" class="btn-primary">Browse Jobs</a>
+      </section>
+
+      <section class="dashboard-stats">
+        <div class="stat-card">
+          <h3>Applications</h3>
+          <p class="stat-value">4</p>
+        </div>
+        <div class="stat-card">
+          <h3>Viewed Jobs</h3>
+          <p class="stat-value">12</p>
+        </div>
+        <div class="stat-card">
+          <h3>Saved Jobs</h3>
+          <p class="stat-value">3</p>
+        </div>
+      </section>
+
+      <section class="recent-applications">
+        <h2>My Applications</h2>
+        <div class="job-list">
+          <div class="job-card">
+            <div class="job-header">
+              <h3>Frontend Developer</h3>
+              <span class="company-name">Tech Solutions Inc.</span>
+            </div>
+            <p class="job-info">Applied: March 28, 2025</p>
+            <p class="application-status pending">Status: Pending Review</p>
+            <a href="job-details.html" class="btn-secondary">View Job</a>
+          </div>
+
+          <div class="job-card">
+            <div class="job-header">
+              <h3>UX Designer</h3>
+              <span class="company-name">Creative Minds LLC</span>
+            </div>
+            <p class="job-info">Applied: March 25, 2025</p>
+            <p class="application-status reviewing">Status: Under Review</p>
+            <a href="job-details.html" class="btn-secondary">View Job</a>
+          </div>
+        </div>
+      </section>
+      <section class="saved-jobs">
+        <h2>My Saved Jobs</h2>
+        
+      </section>
+    </main>
+    <div id="toast" class="toast"></div>
+    <footer>
+      <p>&copy; 2025 CareerSeek. All rights reserved.</p>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        const userNameElement = document.querySelector(".user-name");
+        const applicationsStat = document.querySelector(
+          ".dashboard-stats .stat-card:nth-child(1) .stat-value"
+        );
+
+        if (currentUser && currentUser.username) {
+          userNameElement.textContent = currentUser.username;
+        } else {
+          userNameElement.textContent = "Guest";
+        }
+
+        // Load and show application count
+        const stats = JSON.parse(localStorage.getItem("userStats")) || {};
+        const count = stats[currentUser?.email]?.applicationCount || 0;
+        if (applicationsStat) {
+          applicationsStat.textContent = count;
+        }
+      });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+  const allSaved = JSON.parse(localStorage.getItem("savedJobs")) || [];
+
+  //get only this user's saved‐jobs
+  const userSaved = allSaved.filter(s => s.userId === currentUser?.id);
+
+  //update the Saved Jobs stat (3rd stat‐card)
+  const savedStat = document.querySelector(
+    ".dashboard-stats .stat-card:nth-child(3) .stat-value"
+  );
+  if (savedStat) {
+    savedStat.textContent = userSaved.length;
+  }
+
+  //render into <section class="saved-jobs">
+  const savedSection = document.querySelector(".saved-jobs");
+  if (savedSection) {
+    if (userSaved.length === 0) {
+      savedSection.innerHTML += `<p>You haven't saved any jobs yet.</p>`;
+    } else {
+      let html = '<div class="job-list">';
+      userSaved.forEach(s => {
+        // find the full job details
+        const job = jobs.find(j => j.id == s.jobId);
+        if (!job) return;
+        html += `
+          <div class="job-card">
+            <div class="job-header">
+              <h3>${job.job_title}</h3>
+              <span class="company-name">${job.company_name}</span>
+            </div>
+            <p class="job-info">
+              ${job.salary} • ${job.year_of_experience} Years Experience
+            </p>
+            <a href="job-details.html?id=${job.id}" class="btn-secondary">
+              View Job
+            </a>
+          </div>
+        `;
+      });
+      html += "</div>";
+      savedSection.innerHTML += html;
+    }
+  }
+});
+</script>
+
+    </script>
+  </body>
+  <script src="..//javascript/user-dashboaed.js" defer></script>
+
+  <script src="..//javascript/job-details.js" defer></script>
+</html>
