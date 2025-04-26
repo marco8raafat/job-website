@@ -132,3 +132,29 @@ function showToast(message, type = 'success') {
         toast.style.display = 'none';
     }, 3000);
 }
+
+const passwordInput = document.getElementById('password');
+const togglePassword = document.getElementById('toggle-password');
+
+togglePassword.addEventListener('click', function () {
+  // Toggle the type attribute
+  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput.setAttribute('type', type);
+  
+  // Toggle the eye / eye-slash icon
+  this.classList.toggle('uil-eye');
+  this.classList.toggle('uil-eye-slash');
+});
+
+const passwordInput2 = document.getElementById('confirmpass');
+const togglePassword2 = document.getElementById('toggle-password2');
+
+togglePassword2.addEventListener('click', function () {
+  // Toggle the type attribute
+  const type = passwordInput2.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput2.setAttribute('type', type);
+  
+  // Toggle the eye / eye-slash icon
+  this.classList.toggle('uil-eye');
+  this.classList.toggle('uil-eye-slash');
+});
