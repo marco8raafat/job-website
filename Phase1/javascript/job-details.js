@@ -143,10 +143,10 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="job-meta">
               <p class="salary">${job.salary}</p>
               <p class="experience">${
-          job.year_of_experience
+                job.year_of_experience
               } Years Experience</p>
               <p class="date">Posted: ${
-          job.posted_date || new Date().toLocaleDateString()
+                job.posted_date || new Date().toLocaleDateString()
               }</p>
             </div>
           </div>
@@ -183,13 +183,15 @@ document.addEventListener("DOMContentLoaded", function () {
         if (applyBtn1 && cvInput) {
           applyBtn1.addEventListener("click", function () {
             if (!cvInput.files.length) {
-             showToast("Please upload your CV before applying for this job", "warning");
+              showToast(
+                "Please upload your CV before applying for this job",
+                "warning"
+              );
               return;
             }
 
             const currentUser = JSON.parse(localStorage.getItem("currentUser"));
             if (!currentUser) {
-              // alert("Please log in to apply for this job.");
               showToast("Please log in to apply for this job.", "warning");
               return;
             }
@@ -203,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (alreadyApplied) {
               showToast("You have already applied for this job.", "warning");
               return;
-          }
+            }
 
             const newApplication = {
               jobId: job.id,
@@ -216,11 +218,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             applications.push(newApplication);
             localStorage.setItem("applications", JSON.stringify(applications));
-            // alert("Application submitted successfully!");
+
             showToast("Application submitted successfully!", "success");
 
-
-            // Dispatch a custom event to notify the dashboard
             const applicationEvent = new CustomEvent("applicationSubmitted", {
               detail: newApplication,
             });
@@ -252,16 +252,18 @@ function deleteJob(jobId) {
 }
 ///////////////////////////////////////////////////////////////////////////
 
-function showToast(message, type = 'success') {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.style.backgroundColor = 
-        type === 'error' ? 'var(--danger-color)' :
-        type === 'warning' ? 'var(--danger-color)' :
-        'var(--success-color)';
-    toast.style.display = 'block';
-    
-    setTimeout(() => {
-        toast.style.display = 'none';
-    }, 3000);
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.backgroundColor =
+    type === "error"
+      ? "var(--danger-color)"
+      : type === "warning"
+      ? "var(--danger-color)"
+      : "var(--success-color)";
+  toast.style.display = "block";
+
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
 }

@@ -35,37 +35,32 @@ document.addEventListener("DOMContentLoaded", function () {
     if (existingJobIndex !== -1) {
       // Update existing job
       jobs[existingJobIndex] = newJob;
-      // alert("Job updated successfully!");
-      showToast("Job updated successfully!", "success");
 
+      showToast("Job updated successfully!", "success");
     } else {
-      // Add new job
       jobs.push(newJob);
-      // alert("Job added successfully!");
+
       showToast("Job added successfully!", "success");
       setTimeout(() => {
         localStorage.setItem("jobs", JSON.stringify(jobs));
-        window.location.href = 'company-dashboard.html';
-    }, 2000);
+        window.location.href = "company-dashboard.html";
+      }, 2000);
     }
-
-    // Save back to localStorage
-
-    // Redirect to company dashboard
-    // window.location.href = "company-dashboard.html";
   });
 });
 
-function showToast(message, type = 'success') {
-  const toast = document.getElementById('toast');
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
   toast.textContent = message;
-  toast.style.backgroundColor = 
-      type === 'error' ? 'var(--danger-color)' :
-      type === 'warning' ? 'var(--danger-color)' :
-      'var(--success-color)';
-  toast.style.display = 'block';
-  
+  toast.style.backgroundColor =
+    type === "error"
+      ? "var(--danger-color)"
+      : type === "warning"
+      ? "var(--danger-color)"
+      : "var(--success-color)";
+  toast.style.display = "block";
+
   setTimeout(() => {
-      toast.style.display = 'none';
+    toast.style.display = "none";
   }, 3000);
 }

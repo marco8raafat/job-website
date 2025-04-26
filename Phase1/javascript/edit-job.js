@@ -40,24 +40,25 @@ document.addEventListener("DOMContentLoaded", function () {
     const updatedJobs = jobs.map((j) => (j.id == jobId ? job : j));
     localStorage.setItem("jobs", JSON.stringify(updatedJobs));
 
-    // alert("Job updated successfully!");
     showToast("Job updated successfully!", "success");
     setTimeout(() => {
       window.location.href = "company-jobs.html";
-  }, 2000);
+    }, 2000);
   });
 });
 
-function showToast(message, type = 'success') {
-  const toast = document.getElementById('toast');
+function showToast(message, type = "success") {
+  const toast = document.getElementById("toast");
   toast.textContent = message;
-  toast.style.backgroundColor = 
-      type === 'error' ? 'var(--danger-color)' :
-      type === 'warning' ? 'var(--danger-color)' :
-      'var(--success-color)';
-  toast.style.display = 'block';
-  
+  toast.style.backgroundColor =
+    type === "error"
+      ? "var(--danger-color)"
+      : type === "warning"
+      ? "var(--danger-color)"
+      : "var(--success-color)";
+  toast.style.display = "block";
+
   setTimeout(() => {
-      toast.style.display = 'none';
+    toast.style.display = "none";
   }, 3000);
 }
