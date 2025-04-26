@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (backLink) {
           backLink.addEventListener("click", function (e) {
             e.preventDefault(); // Prevent default anchor behavior
-            window.history.back(); // Go back one page
+            window.history.back(); // Go back one page.
           });
         }
 
@@ -216,7 +216,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             applications.push(newApplication);
             localStorage.setItem("applications", JSON.stringify(applications));
-            alert("Application submitted successfully!");
+            // alert("Application submitted successfully!");
+            showToast("Application submitted successfully!", "success");
+
 
             // Dispatch a custom event to notify the dashboard
             const applicationEvent = new CustomEvent("applicationSubmitted", {
