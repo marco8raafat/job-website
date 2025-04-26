@@ -12,6 +12,9 @@
   --secondary-color: #55a6e1;
   --light-pink-color: #faf4f5;
   --medium-gray-color: #ccc;
+  --success-color: #27ae60; /* Green */
+  --danger-color: #e74c3c; /* Red */
+  --warning-color: #f1c40f; /* Yellow */
 
   /* Font size */
   --font-size-s: 0.9rem;
@@ -211,3 +214,15 @@ form .fields .input-field {
     background-color: rgba(255, 255, 255, 0.997);
     color: #2563eb;
 }
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    color: white;
+    display: none;
+    animation: slideIn 0.25s ease;
+    font-weight: 500;
+    z-index: 1000;
+  }

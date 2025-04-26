@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <h2>Job Description</h2>
             <p>${job.description}</p>
           </div>
-          <form id="applyForm" method="GET" action="user-dashboard.html">
+          <div id="applyForm">
             <div class="cv-input">
               <h3>Input your CV here:</h3>
               <input type="file" id="cvInput" name="cv" accept=".pdf,.doc,.docx" required />
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="apply-section">
               <button id="applyBtn" type="submit" class="btn-primary btn-large">Apply Now</button>
             </div>
-          </form>
+          </div>
 
           </div>
         `;
@@ -183,13 +183,14 @@ document.addEventListener("DOMContentLoaded", function () {
         if (applyBtn1 && cvInput) {
           applyBtn1.addEventListener("click", function () {
             if (!cvInput.files.length) {
-              alert("Please upload your CV before applying for this job.");
+             showToast("Please upload your CV before applying for this job", "warning");
               return;
             }
 
             const currentUser = JSON.parse(localStorage.getItem("currentUser"));
             if (!currentUser) {
-              alert("Please log in to apply for this job.");
+              // alert("Please log in to apply for this job.");
+              showToast("Please log in to apply for this job.", "warning");
               return;
             }
 
@@ -200,9 +201,9 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             if (alreadyApplied) {
-              alert("You have already applied for this job.");
+              showToast("You have already applied for this job.", "warning");
               return;
-            }
+          }
 
             const newApplication = {
               jobId: job.id,
@@ -248,3 +249,17 @@ function deleteJob(jobId) {
   }
 }
 ///////////////////////////////////////////////////////////////////////////
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.backgroundColor = 
+        type === 'error' ? 'var(--danger-color)' :
+        type === 'warning' ? 'var(--danger-color)' :
+        'var(--success-color)';
+    toast.style.display = 'block';
+    
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 3000);
+}

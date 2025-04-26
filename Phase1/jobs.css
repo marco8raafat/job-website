@@ -249,3 +249,15 @@ select#status-filter {
 .job-card.hidden {
   display: none;
 }
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  color: white;
+  display: none;
+  animation: slideIn 0.25s ease;
+  font-weight: 500;
+  z-index: 1000;
+}
