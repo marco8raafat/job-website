@@ -28,9 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // COMPANY DASHBOARD (RECENT JOBS)
-  const companyJobList = document.querySelector(".recent-jobs .job-list");
+  const companyJobList = document.querySelector(".jobs-container1 .job-list1");
   if (companyJobList) {
-    const recentJobs = [...jobs].sort((a, b) => b.id - a.id).slice(0, 3);
+    const recentJobs = [...jobs].sort((a, b) => b.id - a.id);
     recentJobs.forEach((job) => {
       const jobCard = `
         <div class="job-card">
@@ -52,6 +52,32 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
       `;
       companyJobList.insertAdjacentHTML("beforeend", jobCard);
+    });
+  }
+  const companyJobList1 = document.querySelector(".recent-jobs .job-list");
+  if (companyJobList1) {
+    const recentJobs = [...jobs].sort((a, b) => b.id - a.id).slice(0, 3);
+    recentJobs.forEach((job) => {
+      const jobCard = `
+        <div class="job-card">
+          <div class="job-header">
+            <h3>${job.job_title}</h3>
+            <span class="job-status ${job.status || "open"}">${
+        job.status || "Open"
+      }</span>
+          </div>
+          <p class="job-info">${job.salary} • ${
+        job.year_of_experience
+      } Years Experience</p>
+          <div class="job-actions">
+            <a href="edit-job.html?id=${job.id}" class="btn-secondary">Edit</a>
+            <a href="#" class="btn-danger" onclick="deleteJob(${
+              job.id
+            }); return false;">Delete</a>
+          </div>
+        </div>
+      `;
+      companyJobList1.insertAdjacentHTML("beforeend", jobCard);
     });
 
     const activeJobsCount = document.querySelector(
@@ -129,15 +155,18 @@ document.addEventListener("DOMContentLoaded", function () {
             <h2>Job Description</h2>
             <p>${job.description}</p>
           </div>
-          <div class="cv-input">
-          <h3>Input your CV here:</h3>
-          <input type="file" id="cvInput" accept=".pdf,.doc,.docx" required />
-          <p class="cv-note">Please upload your CV in PDF or Word format.</p>
-          </div>
+          <form id="applyForm" method="GET" action="user-dashboard.html">
+            <div class="cv-input">
+              <h3>Input your CV here:</h3>
+              <input type="file" id="cvInput" name="cv" accept=".pdf,.doc,.docx" required />
+              <p class="cv-note">Please upload your CV in PDF or Word format.</p>
+            </div>
+                      
+            <div class="apply-section">
+              <button id="applyBtn" type="submit" class="btn-primary btn-large">Apply Now</button>
+            </div>
+          </form>
 
-          <div class="apply-section">
-            <button id="applyBtn" class="btn-primary btn-large">Apply Now</button>
-          </div>
           </div>
         `;
         const backLink = document.getElementById("backLink");

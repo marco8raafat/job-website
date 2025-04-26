@@ -16,6 +16,7 @@
   box-shadow: var(--shadow);
   padding: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 50px;
 }
 
 .job-card:hover {
