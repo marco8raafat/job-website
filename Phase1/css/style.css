@@ -629,3 +629,17 @@ footer {
   font-weight: 500;
   z-index: 1000;
 }
+
+footer {
+  background-color: #dbe0e9;
+  color: #000000;
+  text-align: center;
+  padding: 1.5rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  /* margin-top: 2rem; */
+}
