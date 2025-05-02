@@ -1,0 +1,16 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('login/', views.login, name='login'),
+    path('signup/', views.signup, name='signup'),
+    path('forget-pass/', views.forget_pass, name='forget-pass'),
+    path('user-dashboard/', views.user_dashboard, name='user-dashboard'),
+    path('job-list/', views.job_list, name='job-list'),
+    path('job-details/', views.job_details, name='job-details'),
+    path('company-dashboard/', views.company_dashboard, name='company-dashboard'),
+    path('company-jobs/', views.company_jobs, name='company-jobs'),
+    path('add-job/', views.add_job, name='add-job'),
+    path('edit-job/', views.edit_job, name='edit-job'),
+]
