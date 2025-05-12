@@ -3,7 +3,37 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
 from .models import User
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password
 
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        try:
+            user = User.objects.get(username=username)
+            if check_password(password, user.password):  # Verify hashed password
+                return JsonResponse({
+                    'success': True,
+                    'usertype': user.usertype,
+                    'username': user.username
+                })
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Invalid password'
+                })
+        except User.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'error': 'User does not exist'
+            })
+    
+    return JsonResponse({
+        'success': False,
+        'error': 'Invalid request method'
+    })
 def register(request):
     if request.method == 'POST':
         errors = {}
@@ -37,7 +67,7 @@ def register(request):
             return JsonResponse({'success': False, 'errors': {'__all__': str(e)}})
     
     return JsonResponse({'success': False, 'errors': {'__all__': 'Invalid request method'}})
-# Create your views here.
+
 def index(request):
     return render(request, 'pages/index.html')
 
@@ -76,3 +106,4 @@ def add_job(request):
 
 def edit_job(request):   
     return render(request, 'pages/edit-job.html')
+

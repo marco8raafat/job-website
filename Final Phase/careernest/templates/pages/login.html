@@ -71,7 +71,6 @@
 // const loginForm = document.querySelector('.login-form form');
 const formsignup = document.getElementById("loginForm");
 let users = JSON.parse(localStorage.getItem("users")) || [];
-
 loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -80,32 +79,37 @@ loginForm.addEventListener("submit", (e) => {
 
   clearErrors();
 
-  const user = users.find(
-    (u) => u.username.toLowerCase() === username.toLowerCase()
-  );
-
-  if (!user) {
-    showError("login-username", "Invalid username");
-    return;
-  }
-
-  if (user.password !== password) {
-    showError("login-password", "Invalid password");
-    return;
-  }
-
-  // Successful login
-  showToast(`Welcome back, ${username}!`, "success");
-
-  setTimeout(() => {
-    localStorage.setItem("currentUser", JSON.stringify(user));
-    if (user.userType === "option1") {
-      window.location.href = "{% url 'user-dashboard' %}";
-    } else if (user.userType === "option2") {
-      window.location.href = "{% url 'company-dashboard' %}";
+  // Send data to Django backend
+  fetch("{% url 'api-login' %}", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": "{{ csrf_token }}",
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      showToast(`Welcome back, ${username}!`, "success");
+      
+      setTimeout(() => {
+        if (data.usertype === "option1") {
+          window.location.href = "{% url 'user-dashboard' %}";
+        } else if (data.usertype === "option2") {
+          window.location.href = "{% url 'company-dashboard' %}";
+        }
+      }, 2000);
+    } else {
+      showError("login-username", data.error || "Login failed");
     }
-  }, 2000);
+  })
+  .catch(error => {
+    showToast("Login error. Please try again.", "error");
+    console.error("Error:", error);
+  });
 });
+
 
 // Error handling functions (same as signup)
 function showError(fieldId, message) {
