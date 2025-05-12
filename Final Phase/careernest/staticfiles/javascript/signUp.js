@@ -41,12 +41,12 @@ formsignup.addEventListener("submit", (e) => {
   formsignup.reset();
     // Redirection logic
     setTimeout(() => {
-      if (userType === 'option1') {
-        window.location.href = '/user-dashboard/';
-      } else if (userType === 'option2') {
-        window.location.href = '/company-dashboard/';
-      }
-    }, 1000);
+        if (userType === 'option1') {
+          window.location.href = 'user-dashboard.html';
+        } else if (userType === 'option2') {
+          window.location.href = 'company-dashboard.html';
+        }
+      }, 1000);
 });
 
 function validateUsername(username) {

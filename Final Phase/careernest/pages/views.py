@@ -16,6 +16,12 @@ def forget_pass(request):
 def user_dashboard(request):
     return render(request, 'pages/user-dashboard.html')
 
+def signup_user_dashboard(request):
+    return render(request, 'pages/signup/user-dashboard.html')
+
+def login_user_dashboard(request):
+    return render(request, 'pages/login/user-dashboard.html')
+
 def job_list(request):
     return render(request, 'pages/job-list.html')
 
