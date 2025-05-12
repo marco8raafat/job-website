@@ -36,7 +36,8 @@
                     <li>Password must contain at least one special character (#!$,...)</li>
                   </ul>
               </p>
-                <form action="#" id="formsignup">
+                <form id="formsignup" method="post">
+                    {% csrf_token %}
                     <div class="input-field">
                         <input id="username" type="text" placeholder="username" required>
                         <i class="uil uil-envelope-alt"></i>
@@ -76,7 +77,6 @@
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
 // users.push({ username: "marco", email: "marco@example.com" }); //testing 
-
 formsignup.addEventListener("submit", (e) => {
   e.preventDefault();
   
@@ -90,48 +90,61 @@ formsignup.addEventListener("submit", (e) => {
   clearErrors();
 
   if (!validateUsername(username)) return;
-
   if (!validateEmail(email)) return;
-
   if (!validatePassword(password)) return;
-
   if (password !== confirmpass) {
     showError("confirmpass", "Passwords do not match");
     return;
   }
 
-  // Create user object
-  const newUser = {
-    username,
-    password,
-    email,
-    userType
-  };
+  // Create FormData object
+  const formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password);
+  formData.append('email', email);
+  formData.append('usertype', userType);
+  formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
-  users.push(newUser);
-  localStorage.setItem('users', JSON.stringify(users));
-//   alert("Registration successful!");
-  showToast('Registration successful!');
-  formsignup.reset();
-    // Redirection logic
-    setTimeout(() => {
+  // Make AJAX request to Django
+  fetch("{% url 'register' %}", {
+    method: "POST",
+    body: formData,
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+    },
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      showToast('Registration successful!');
+      formsignup.reset();
+      // Redirection logic
+      setTimeout(() => {
         if (userType === 'option1') {
           window.location.href = "{% url 'user-dashboard' %}";
         } else if (userType === 'option2') {
           window.location.href = "{% url 'company-dashboard' %}";
         }
       }, 1000);
+    } else {
+      // Show errors from server
+      if (data.errors) {
+        for (const [field, message] of Object.entries(data.errors)) {
+          showError(field, message);
+        }
+      }
+    }
+  })
+  .catch(error => {
+    showToast('An error occurred during registration', 'error');
+    console.error('Error:', error);
+  });
 });
 
+// Add the missing validation functions
 function validateUsername(username) {
   if (username.length < 8) {
     showError("username", "Username must be at least 8 characters");
-    return false;
-  }
-  
-  const existingUser = users.find(user => user.username.toLowerCase() === username.toLowerCase());
-  if (existingUser) {
-    showError("username", "Username already taken");
     return false;
   }
   return true;
@@ -140,56 +153,66 @@ function validateUsername(username) {
 function validateEmail(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
-    showError("email", "Invalid email format");
-    return false;
-  }
-  
-  const existingEmail = users.find(user => user.email === email);
-  if (existingEmail) {
-    showError("email", "Email already registered");
+    showError("email", "Please enter a valid email address");
     return false;
   }
   return true;
 }
 
 function validatePassword(password) {
-  const minLength = 8;
-  const hasUpperCase = /[A-Z]/;
-  const hasNumber = /\d/;
-  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
-
-  if (password.length < minLength) {
-    showError("password", `Password must be at least ${minLength} characters`);
+  if (password.length < 8) {
+    showError("password", "Password must be at least 8 characters");
     return false;
   }
-  if (!hasUpperCase.test(password)) {
+  
+  if (!/[A-Z]/.test(password)) {
     showError("password", "Password must contain at least one uppercase letter");
     return false;
   }
-  if (!hasNumber.test(password)) {
+  
+  if (!/[0-9]/.test(password)) {
     showError("password", "Password must contain at least one number");
     return false;
   }
-  if (!hasSpecialChar.test(password)) {
+  
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
     showError("password", "Password must contain at least one special character");
     return false;
   }
+  
   return true;
 }
 
 function showError(fieldId, message) {
   const field = document.getElementById(fieldId);
-  const error = document.createElement("div");
-  error.className = "error-message";
-  error.style.color = "red";
-  error.style.fontSize = "0.8rem";
-  error.textContent = message;
-  field.parentElement.appendChild(error);
+  const errorElement = document.createElement("div");
+  errorElement.className = "error-message";
+  errorElement.textContent = message;
+  errorElement.style.color = "red";
+  errorElement.style.fontSize = "12px";
+  errorElement.style.marginTop = "5px";
+  
+  // Remove any existing error for this field
+  const existingError = field.parentNode.querySelector(".error-message");
+  if (existingError) {
+    field.parentNode.removeChild(existingError);
+  }
+  
+  // Add the new error message
+  field.parentNode.appendChild(errorElement);
+  field.style.borderColor = "red";
 }
 
 function clearErrors() {
-  const errors = document.querySelectorAll(".error-message");
-  errors.forEach(error => error.remove());
+  // Remove all error messages
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach(error => error.remove());
+  
+  // Reset input field styles
+  const inputs = document.querySelectorAll(".input-field input");
+  inputs.forEach(input => {
+    input.style.borderColor = "";
+  });
 }
 
 // Toast Notification System
