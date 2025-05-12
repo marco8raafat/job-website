@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const confirmPassField = document.createElement('div');
     const users = JSON.parse(localStorage.getItem('users')) || [];
 
-    // Create new password input hi.
+    // Create new password input
     newPassField.className = 'input-field';
     newPassField.innerHTML = `
         <input id="new-password" type="password" placeholder="New Password" required>

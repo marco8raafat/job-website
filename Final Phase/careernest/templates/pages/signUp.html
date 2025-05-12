@@ -36,7 +36,8 @@
                     <li>Password must contain at least one special character (#!$,...)</li>
                   </ul>
               </p>
-                <form action="#" id="formsignup">
+                <form id="formsignup" method="post">
+                    {% csrf_token %}
                     <div class="input-field">
                         <input id="username" type="text" placeholder="username" required>
                         <i class="uil uil-envelope-alt"></i>
@@ -71,6 +72,189 @@
     <footer>
       <p>&copy; 2025 CareerNest. All rights reserved.</p>
     </footer>
-    <script src="{% static 'javascript/signUp.js' %}" defer></script>
+    <script>
+      const formsignup = document.getElementById("formsignup");
+let users = JSON.parse(localStorage.getItem('users')) || [];
+
+// users.push({ username: "marco", email: "marco@example.com" }); //testing 
+formsignup.addEventListener("submit", (e) => {
+  e.preventDefault();
+  
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmpass = document.getElementById("confirmpass").value;
+  const email = document.getElementById("email").value.trim();
+  const userType = document.getElementById("choice").value;
+
+  // Clear the past errors
+  clearErrors();
+
+  if (!validateUsername(username)) return;
+  if (!validateEmail(email)) return;
+  if (!validatePassword(password)) return;
+  if (password !== confirmpass) {
+    showError("confirmpass", "Passwords do not match");
+    return;
+  }
+
+  // Create FormData object
+  const formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password);
+  formData.append('email', email);
+  formData.append('usertype', userType);
+  formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+  // Make AJAX request to Django
+  fetch("{% url 'register' %}", {
+    method: "POST",
+    body: formData,
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+    },
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      showToast('Registration successful!');
+      formsignup.reset();
+      // Redirection logic
+      setTimeout(() => {
+        if (userType === 'option1') {
+          window.location.href = "{% url 'user-dashboard' %}";
+        } else if (userType === 'option2') {
+          window.location.href = "{% url 'company-dashboard' %}";
+        }
+      }, 1000);
+    } else {
+      // Show errors from server
+      if (data.errors) {
+        for (const [field, message] of Object.entries(data.errors)) {
+          showError(field, message);
+        }
+      }
+    }
+  })
+  .catch(error => {
+    showToast('An error occurred during registration', 'error');
+    console.error('Error:', error);
+  });
+});
+
+// Add the missing validation functions
+function validateUsername(username) {
+  if (username.length < 8) {
+    showError("username", "Username must be at least 8 characters");
+    return false;
+  }
+  return true;
+}
+
+function validateEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    showError("email", "Please enter a valid email address");
+    return false;
+  }
+  return true;
+}
+
+function validatePassword(password) {
+  if (password.length < 8) {
+    showError("password", "Password must be at least 8 characters");
+    return false;
+  }
+  
+  if (!/[A-Z]/.test(password)) {
+    showError("password", "Password must contain at least one uppercase letter");
+    return false;
+  }
+  
+  if (!/[0-9]/.test(password)) {
+    showError("password", "Password must contain at least one number");
+    return false;
+  }
+  
+  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+    showError("password", "Password must contain at least one special character");
+    return false;
+  }
+  
+  return true;
+}
+
+function showError(fieldId, message) {
+  const field = document.getElementById(fieldId);
+  const errorElement = document.createElement("div");
+  errorElement.className = "error-message";
+  errorElement.textContent = message;
+  errorElement.style.color = "red";
+  errorElement.style.fontSize = "12px";
+  errorElement.style.marginTop = "5px";
+  
+  // Remove any existing error for this field
+  const existingError = field.parentNode.querySelector(".error-message");
+  if (existingError) {
+    field.parentNode.removeChild(existingError);
+  }
+  
+  // Add the new error message
+  field.parentNode.appendChild(errorElement);
+  field.style.borderColor = "red";
+}
+
+function clearErrors() {
+  // Remove all error messages
+  const errorMessages = document.querySelectorAll(".error-message");
+  errorMessages.forEach(error => error.remove());
+  
+  // Reset input field styles
+  const inputs = document.querySelectorAll(".input-field input");
+  inputs.forEach(input => {
+    input.style.borderColor = "";
+  });
+}
+
+// Toast Notification System
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.style.backgroundColor = 
+        type === 'error' ? 'var(--danger-color)' :
+        type === 'warning' ? 'var(--warning-color)' :
+        'var(--success-color)';
+    toast.style.display = 'block';
+    
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 3000);
+}
+
+const passwordInput = document.getElementById('password');
+const togglePassword = document.getElementById('toggle-password');
+
+togglePassword.addEventListener('click', function () {
+  // Toggle the type attribute
+  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput.setAttribute('type', type);
+  
+  // Toggle the eye / eye-slash icon
+  this.classList.toggle('uil-eye');
+  this.classList.toggle('uil-eye-slash');
+});
+
+const passwordInput2 = document.getElementById('confirmpass');
+const togglePassword2 = document.getElementById('toggle-password2');
+
+togglePassword2.addEventListener('click', function () {
+  // Toggle the type attribute
+  const type = passwordInput2.getAttribute('type') === 'password' ? 'text' : 'password';
+  passwordInput2.setAttribute('type', type);
+  
+  // Toggle the eye / eye-slash icon
+  this.classList.toggle('uil-eye');
+  this.classList.toggle('uil-eye-slash');
+});
+    </script>
 </body>
 </html>
