@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     // Get form values
-    
+
     const title = document.querySelector(".input-title").value;
     const salary = document.querySelector(".input-salary").value;
     const companyName = document.querySelector(".input-company-name").value;

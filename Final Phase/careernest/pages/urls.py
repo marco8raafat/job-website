@@ -16,4 +16,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('api/login/', views.login_user, name='api-login'), # New API endpoint
     path('api/create-job/', views.create_job, name='create-job'),
+    path('api/get-jobs/', views.get_jobs, name='get-jobs'),
+    path('api/delete-job/<int:job_id>/', views.delete_job, name='delete-job'),
 ]

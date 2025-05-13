@@ -30,21 +30,24 @@
       <section class="dashboard-stats">
         <div class="stat-card">
           <h3>Active Jobs</h3>
-          <p class="stat-value">5</p>
+          <p class="stat-value">0</p>
         </div>
         <div class="stat-card">
           <h3>Total Applications</h3>
-          <p class="stat-value">27</p>
+          <p class="stat-value">0</p>
         </div>
         <div class="stat-card">
           <h3>Recent Jobs</h3>
-          <p class="stat-value">3</p>
+          <p class="stat-value">0</p>
         </div>
       </section>
 
       <section class="recent-jobs">
         <h2>Recent Job Postings</h2>
-        <div class="job-list"></div>
+        <div class="job-list">
+          <!-- Jobs will be loaded here dynamically -->
+          <p class="loading">Loading jobs...</p>
+        </div>
 
         <div class="view-all">
           <a href="{% url 'company-jobs' %}">View All Jobs</a>
@@ -55,6 +58,8 @@
     <footer>
       <p>&copy; 2025 CareerNest. All rights reserved.</p>
     </footer>
+    
+    <div id="toast" class="toast"></div>
+    <script src="{% static 'javascript/company-dashboard.js' %}"></script>
   </body>
-  <script src="{% static 'javascript/job-details.js' %}"></script>
 </html>

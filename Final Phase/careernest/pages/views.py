@@ -7,6 +7,9 @@ from .models import User
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
 from .models import Job
+from django.views.decorators.http import require_http_methods
+import json
+from .models import Application
 
 # views.py
 @csrf_exempt
@@ -167,4 +170,46 @@ def add_job(request):
 
 def edit_job(request):   
     return render(request, 'pages/edit-job.html')
+
+@csrf_exempt
+def get_jobs(request):
+    """API endpoint to fetch all jobs for a company user"""
+    try:
+        # In a real-world app, you'd get the company ID from the authenticated user
+        # For now, we'll just get all jobs
+        jobs = Job.objects.all().order_by('-posted_date')
+        
+        # Serialize jobs to JSON
+        jobs_data = []
+        for job in jobs:
+            jobs_data.append({
+                'id': job.id,
+                'job_title': job.job_title,
+                'salary': job.salary,
+                'company_name': job.company_name,
+                'year_of_experience': job.year_of_experience,
+                'description': job.description,
+                'status': job.status,
+                'posted_date': job.posted_date.strftime('%Y-%m-%d'),
+                'posted_by': job.posted_by.username if job.posted_by else None,
+            })
+        
+        return JsonResponse({'success': True, 'jobs': jobs_data})
+    except Exception as e:
+        print(f"Error fetching jobs: {str(e)}")
+        return JsonResponse({'success': False, 'error': str(e)})
+
+@csrf_exempt
+@require_http_methods(["DELETE"])
+def delete_job(request, job_id):
+    """API endpoint to delete a job"""
+    try:
+        job = Job.objects.get(id=job_id)
+        job.delete()
+        return JsonResponse({'success': True})
+    except Job.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Job not found'})
+    except Exception as e:
+        print(f"Error deleting job: {str(e)}")
+        return JsonResponse({'success': False, 'error': str(e)})
 

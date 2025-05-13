@@ -40,14 +40,17 @@
 
       <section class="jobs-container1">
         <div class="job-list1">
-          <!-- added here dynamically -->
+          <!-- Jobs will be loaded here dynamically -->
+          <p class="loading">Loading jobs...</p>
         </div>
       </section>
     </main>
-    <script src="{% static 'javascript/Filtering.js' %}"></script>
+    
+    <div id="toast" class="toast"></div>
     <footer>
       <p>&copy; 2025 CareerNest. All rights reserved.</p>
     </footer>
-    <script src="{% static 'javascript/job-details.js' %}"></script>
+    <script src="{% static 'javascript/company-dashboard.js' %}"></script>
+    <script src="{% static 'javascript/company-jobs-filter.js' %}"></script>
   </body>
 </html>
