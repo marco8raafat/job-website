@@ -23,20 +23,11 @@
     </nav>
     <div class="container">
       <header>CareerNest</header>
-      <form action="#">
+      <form action="{% url 'create-job' %}" method="POST">
+        {% csrf_token %}
         <div class="form first">
           <div class="job">
             <div class="fields">
-              <div class="input-field">
-                <label>ID</label>
-                <input
-                  type="number"
-                  class="input-id"
-                  placeholder="Enter your ID"
-                  required
-                  name="id"
-                />
-              </div>
               <div class="input-field">
                 <label>Job title</label>
                 <input
@@ -70,7 +61,7 @@
               <div class="input-field">
                 <label>Year of Experience</label>
                 <input
-                  type="text"
+                  type="number"
                   class="input-experience"
                   placeholder="Enter your Experience"
                   required
@@ -89,7 +80,7 @@
               <div class="in-open">
                 <p>Job status</p>
                 <div>
-                  <input id="win" type="radio" name="status" value="open" />
+                  <input id="win" type="radio" name="status" value="open" checked />
                   <label for="win">Open</label>
                 </div>
                 <div>

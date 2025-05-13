@@ -5,47 +5,50 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
 
     // Get form values
-    const id = document.querySelector(".input-id").value;
+    
     const title = document.querySelector(".input-title").value;
     const salary = document.querySelector(".input-salary").value;
     const companyName = document.querySelector(".input-company-name").value;
     const experience = document.querySelector(".input-experience").value;
     const description = document.querySelector(".input-description").value;
-    const status =
-      document.querySelector('input[name="status"]:checked')?.value || "open";
+    const status = document.querySelector('input[name="status"]:checked')?.value || "open";
 
-    // Create new job object
-    const newJob = {
-      id: id,
-      job_title: title,
-      salary: `$${salary}`,
-      company_name: companyName,
-      year_of_experience: experience,
-      description: description,
-      status: status,
-      posted_date: new Date().toLocaleDateString(),
-    };
+    // Create FormData object
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('Salary', salary);
+    formData.append('company name', companyName);
+    formData.append('Experience', experience);
+    formData.append('description', description);
+    formData.append('status', status);
 
-    // Get existing jobs from localStorage
-    const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    // Get CSRF token from the form
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    // Check if job with this ID already exists
-    const existingJobIndex = jobs.findIndex((job) => job.id == id);
-
-    if (existingJobIndex !== -1) {
-      // Update existing job
-      jobs[existingJobIndex] = newJob;
-
-      showToast("Job updated successfully!", "success");
-    } else {
-      jobs.push(newJob);
-
-      showToast("Job added successfully!", "success");
-      setTimeout(() => {
-        localStorage.setItem("jobs", JSON.stringify(jobs));
-        window.location.href = "company-dashboard.html";
-      }, 2000);
-    }
+    // Send data to server
+    fetch('/api/create-job/', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-CSRFToken': csrfToken, // Use the token from the form
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        showToast(data.message || "Job added successfully!", "success");
+        setTimeout(() => {
+          window.location.href = "/company-dashboard/";
+        }, 2000);
+      } else {
+        showToast(data.error || "Failed to add job", "error");
+        console.error("Error:", data.error);
+      }
+    })
+    .catch(error => {
+      showToast("An error occurred: " + error.message, "error");
+      console.error("Fetch error:", error);
+    });
   });
 });
 
@@ -63,4 +66,20 @@ function showToast(message, type = "success") {
   setTimeout(() => {
     toast.style.display = "none";
   }, 3000);
+}
+
+// Helper function to get CSRF token
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
 }

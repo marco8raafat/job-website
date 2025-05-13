@@ -16,14 +16,21 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
+# models.py
 class Job(models.Model):
+    STATUS_CHOICES = [
+        ('open', 'Open'),
+        ('closed', 'Closed'),
+    ]
+    
     job_title = models.CharField(max_length=255)
     salary = models.CharField(max_length=50)
     company_name = models.CharField(max_length=255)
     year_of_experience = models.PositiveIntegerField()
     description = models.TextField()
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='open')
     posted_date = models.DateField(auto_now_add=True)
+    posted_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posted_jobs', null=True)
 
     def __str__(self):
         return f"{self.job_title} at {self.company_name}"
