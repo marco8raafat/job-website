@@ -16,28 +16,26 @@ from .models import Application
 def create_job(request):
     if request.method == 'POST':
         try:
-            # Get the username from the session or POST data
+            print("Processing job creation request")
+            print("POST data:", request.POST)
+            
+            # Get the username from the session
             username = request.session.get('username')
             
-            # If no username in session, check if it's in POST data (for API calls)
-            if not username and request.POST.get('username'):
-                username = request.POST.get('username')
-                
-            # If we have a username, look up the user
-            if username:
-                try:
-                    company_user = User.objects.get(username=username, usertype='option2')
-                except User.DoesNotExist:
-                    # Fallback to first company user if specific user not found
-                    company_user = User.objects.filter(usertype='option2').first()
-            else:
-                # Fallback to first company user if no username provided
-                company_user = User.objects.filter(usertype='option2').first()
-                
-            if not company_user:
+            if not username:
                 return JsonResponse({
                     'success': False, 
-                    'error': 'No company user found. Please login as a company first.'
+                    'error': 'Authentication required. Please log in as a company.'
+                })
+            
+            try:
+                # Find the company user
+                company_user = User.objects.get(username=username, usertype='option2')
+                print(f"Creating job for company user: {username}")
+            except User.DoesNotExist:
+                return JsonResponse({
+                    'success': False, 
+                    'error': 'User not found or not authorized to create jobs'
                 })
             
             # Get form values with proper type conversion
@@ -57,10 +55,12 @@ def create_job(request):
                 posted_by=company_user
             )
             # Print to console for debugging
-            print(f"Job created: {job.id} - {job.job_title}")
+            print(f"Job created: {job.id} - {job.job_title} by user {username}")
             return JsonResponse({'success': True, 'message': 'Job created successfully!'})
         except Exception as e:
             print(f"Error creating job: {str(e)}")
+            import traceback
+            traceback.print_exc()
             return JsonResponse({'success': False, 'error': str(e)})
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
@@ -173,11 +173,28 @@ def edit_job(request):
 
 @csrf_exempt
 def get_jobs(request):
-    """API endpoint to fetch all jobs for a company user"""
+    """API endpoint to fetch jobs for a specific company user"""
     try:
-        # In a real-world app, you'd get the company ID from the authenticated user
-        # For now, we'll just get all jobs
-        jobs = Job.objects.all().order_by('-posted_date')
+        # Get the username from the session
+        username = request.session.get('username')
+        
+        if username:
+            try:
+                # Find the company user
+                company_user = User.objects.get(username=username, usertype='option2')
+                
+                # Get only the jobs posted by this company user
+                jobs = Job.objects.filter(posted_by=company_user).order_by('-posted_date')
+                
+                print(f"Found {jobs.count()} jobs for company user: {username}")
+            except User.DoesNotExist:
+                # If user not found or not a company, return empty jobs
+                print(f"User not found or not a company: {username}")
+                jobs = Job.objects.none()
+        else:
+            # If no user in session, return empty jobs
+            print("No user in session")
+            jobs = Job.objects.none()
         
         # Serialize jobs to JSON
         jobs_data = []
@@ -204,11 +221,27 @@ def get_jobs(request):
 def delete_job(request, job_id):
     """API endpoint to delete a job"""
     try:
-        job = Job.objects.get(id=job_id)
-        job.delete()
-        return JsonResponse({'success': True})
-    except Job.DoesNotExist:
-        return JsonResponse({'success': False, 'error': 'Job not found'})
+        # Get the username from the session
+        username = request.session.get('username')
+        
+        if not username:
+            return JsonResponse({'success': False, 'error': 'Authentication required'})
+        
+        try:
+            # Find the company user
+            company_user = User.objects.get(username=username, usertype='option2')
+            
+            # Try to get the job, ensuring it belongs to this company user
+            job = Job.objects.get(id=job_id, posted_by=company_user)
+            
+            # Delete the job
+            job.delete()
+            print(f"Job {job_id} deleted by user {username}")
+            return JsonResponse({'success': True})
+        except User.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'User not found or not authorized'})
+        except Job.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Job not found or you are not authorized to delete it'})
     except Exception as e:
         print(f"Error deleting job: {str(e)}")
         return JsonResponse({'success': False, 'error': str(e)})
