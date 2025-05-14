@@ -3,6 +3,17 @@ document.addEventListener("DOMContentLoaded", function() {
   fetchJobs();
 
   function fetchJobs() {
+    // Show loading indicator
+    const recentJobsList = document.querySelector(".recent-jobs .job-list");
+    if (recentJobsList) {
+      recentJobsList.innerHTML = '<p class="loading">Loading jobs...</p>';
+    }
+    
+    const allJobsList = document.querySelector(".jobs-container1 .job-list1");
+    if (allJobsList) {
+      allJobsList.innerHTML = '<p class="loading">Loading jobs...</p>';
+    }
+    
     fetch('/api/get-jobs/')
       .then(response => response.json())
       .then(data => {
@@ -11,12 +22,24 @@ document.addEventListener("DOMContentLoaded", function() {
           updateStats(data.jobs);
         } else {
           console.error("Error fetching jobs:", data.error);
-          showToast("Failed to load jobs: " + data.error, "error");
+          
+          // Display authentication error message if relevant
+          if (data.error && data.error.includes("Authentication")) {
+            const message = '<p class="no-jobs">Please <a href="/login/">log in</a> as a company to view your jobs.</p>';
+            if (recentJobsList) recentJobsList.innerHTML = message;
+            if (allJobsList) allJobsList.innerHTML = message;
+          } else {
+            showToast("Failed to load jobs: " + data.error, "error");
+            if (recentJobsList) recentJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs</p>';
+            if (allJobsList) allJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs</p>';
+          }
         }
       })
       .catch(error => {
         console.error("Error fetching jobs:", error);
         showToast("Failed to load jobs. Please try again later.", "error");
+        if (recentJobsList) recentJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs</p>';
+        if (allJobsList) allJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs</p>';
       });
   }
 
@@ -42,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <p class="job-info">${job.salary} • ${job.year_of_experience} Years Experience</p>
             <div class="job-actions">
-              <a href="/edit-job/?id=${job.id}" class="btn-secondary">Edit</a>
+                <a href="/edit-job/${job.id}/" class="btn-secondary">Edit</a> 
               <a href="#" class="btn-danger" onclick="deleteJob(${job.id}); return false;">Delete</a>
             </div>
           </div>
@@ -69,7 +92,9 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <p class="job-info">${job.salary} • ${job.year_of_experience} Years Experience</p>
             <div class="job-actions">
-              <a href="/edit-job/?id=${job.id}" class="btn-secondary">Edit</a>
+            
+              <a href="/edit-job/${job.id}/" class="btn-secondary">Edit</a> 
+              
               <a href="#" class="btn-danger" onclick="deleteJob(${job.id}); return false;">Delete</a>
             </div>
           </div>

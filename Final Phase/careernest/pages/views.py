@@ -246,3 +246,85 @@ def delete_job(request, job_id):
         print(f"Error deleting job: {str(e)}")
         return JsonResponse({'success': False, 'error': str(e)})
 
+# views.py
+# views.py
+def edit_job(request, job_id=None):
+    # If job_id comes from URL path
+    if job_id is not None:
+        try:
+            job = Job.objects.get(id=job_id)
+            context = {'job': job}
+            return render(request, 'pages/edit-job.html', context)
+        except Job.DoesNotExist:
+            return render(request, 'pages/404.html')
+    
+    # If job_id comes from query parameter (legacy support)
+    job_id = request.GET.get('id')
+    if job_id:
+        try:
+            job = Job.objects.get(id=job_id)
+            context = {'job': job}
+            return render(request, 'pages/edit-job.html', context)
+        except Job.DoesNotExist:
+            return render(request, 'pages/404.html')
+    
+    # No job_id provided
+    return render(request, 'pages/404.html')
+@csrf_exempt
+def update_job(request, job_id):
+    if request.method == 'POST':
+        try:
+            username = request.session.get('username')
+            if not username:
+                return JsonResponse({
+                    'success': False, 
+                    'error': 'Authentication required'
+                })
+            
+            company_user = User.objects.get(username=username, usertype='option2')
+            job = Job.objects.get(id=job_id, posted_by=company_user)
+            
+            # Update job fields
+            job.job_title = request.POST.get('job-title')
+            job.salary = request.POST.get('salary')
+            job.year_of_experience = request.POST.get('experience')
+            job.status = request.POST.get('job-status')
+            job.description = request.POST.get('job-description')
+            job.save()
+            
+            return JsonResponse({
+                'success': True, 
+                'message': 'Job updated successfully!'
+            })
+        except Exception as e:
+            return JsonResponse({
+                'success': False, 
+                'error': str(e)
+            })
+    return JsonResponse({
+        'success': False, 
+        'error': 'Invalid request method'
+    })
+
+@csrf_exempt
+def get_job(request, job_id):
+    try:
+        job = Job.objects.get(id=job_id)
+        return JsonResponse({
+            'success': True,
+            'job_title': job.job_title,
+            'salary': job.salary,
+            'year_of_experience': job.year_of_experience,
+            'status': job.status,
+            'description': job.description
+        })
+    except Job.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'error': 'Job not found'
+        })
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        })

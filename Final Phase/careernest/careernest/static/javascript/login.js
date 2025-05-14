@@ -29,7 +29,7 @@ loginForm.addEventListener("submit", (e) => {
   showToast(`Welcome back, ${username}!`, "success");
 
   setTimeout(() => {
-    localStorage.setItem("currentUser", JSON.stringify(user));
+    // localStorage.setItem("currentUser", JSON.stringify(user));
     if (user.userType === "option1") {
       window.location.href = "user-dashboard.html";
     } else if (user.userType === "option2") {

@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <p class="job-info">${job.salary} • ${job.year_of_experience} Years Experience</p>
             <div class="job-actions">
-              <a href="/edit-job/?id=${job.id}" class="btn-secondary">Edit</a>
+                <a href="/edit-job/${job.id}/" class="btn-secondary">Edit</a> 
               <a href="#" class="btn-danger" onclick="deleteJob(${job.id}); return false;">Delete</a>
             </div>
           </div>
@@ -92,7 +92,9 @@ document.addEventListener("DOMContentLoaded", function() {
             </div>
             <p class="job-info">${job.salary} • ${job.year_of_experience} Years Experience</p>
             <div class="job-actions">
-              <a href="/edit-job/?id=${job.id}" class="btn-secondary">Edit</a>
+            
+              <a href="/edit-job/${job.id}/" class="btn-secondary">Edit</a> 
+              
               <a href="#" class="btn-danger" onclick="deleteJob(${job.id}); return false;">Delete</a>
             </div>
           </div>

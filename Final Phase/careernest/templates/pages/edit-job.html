@@ -24,14 +24,14 @@
     <main>
       <section class="form-container wide">
         <h2>Edit Job Opportunity</h2>
-        <form id="edit-job-form" class="job-form">
+        <form id="edit-job-form" class="job-form" method="POST">
+          {% csrf_token %}
           <div class="form-group">
             <label for="job-title">Job Title</label>
             <input
               type="text"
               id="job-title"
               name="job-title"
-              value="Frontend Developer"
               required
             />
           </div>
@@ -43,7 +43,6 @@
                 type="text"
                 id="salary"
                 name="salary"
-                value="$80,000 - $100,000"
                 required
               />
             </div>
@@ -51,10 +50,9 @@
             <div class="form-group">
               <label for="experience">Years of Experience</label>
               <input
-                type="text"
+                type="number"
                 id="experience"
                 name="experience"
-                value="2-4 years"
                 required
               />
             </div>
@@ -63,7 +61,7 @@
           <div class="form-group">
             <label for="job-status">Job Status</label>
             <select id="job-status" name="job-status" required>
-              <option value="open" selected>Open</option>
+              <option value="open">Open</option>
               <option value="closed">Closed</option>
             </select>
           </div>
@@ -75,29 +73,12 @@
               name="job-description"
               rows="10"
               required
-            >
-We're looking for a talented Frontend Developer to join our team and help build amazing user experiences for our clients.
-
-Responsibilities:
-- Develop new user-facing features using HTML, CSS, and JavaScript
-- Build reusable code and libraries for future use
-- Ensure the technical feasibility of UI/UX designs
-- Optimize applications for maximum speed and scalability
-- Collaborate with other team members and stakeholders
-
-Requirements:
-- 2-4 years of experience in frontend development
-- Proficient understanding of web markup, including HTML5 and CSS3
-- Strong JavaScript skills and knowledge of frontend frameworks
-- Familiarity with browser testing and debugging
-- Understanding of CSS pre-processors and build tools
-- Experience with responsive and adaptive design</textarea
-            >
+            ></textarea>
           </div>
 
           <div class="form-actions">
             <button type="submit" class="btn-primary">Save Changes</button>
-            <a href="company-jobs.html" class="btn-secondary">Cancel</a>
+            <a href="{% url 'company-jobs' %}" class="btn-secondary">Cancel</a>
           </div>
         </form>
       </section>
@@ -106,6 +87,6 @@ Requirements:
     <footer>
       <p>&copy; 2025 CareerNest. All rights reserved.</p>
     </footer>
-    <script src="{% static 'javascript/edit-job.js' %}></script>
+    <script src="{% static 'javascript/edit-job.js' %}"></script>
   </body>
 </html>
