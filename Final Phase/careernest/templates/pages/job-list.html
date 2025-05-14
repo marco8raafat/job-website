@@ -41,8 +41,8 @@
     <section class="jobs-container">
       <h2>Available Jobs</h2>
       <div class="job-list">
-  
-  
+        <!-- Jobs will be loaded here dynamically -->
+        <p class="loading">Loading jobs...</p>
       </div>
     </section>
   </main>
@@ -50,8 +50,6 @@
   <footer>
     <p>&copy; 2025 CareerNest. All rights reserved.</p>
   </footer>
+  <script src="{% static 'javascript/job-list.js' %}"></script>
 </body>
-<script src="{% static 'javascript/job-details.js' %}"></script>
-<script src="{% static 'javascript/job-search.js' %}"></script>
-
 </html>

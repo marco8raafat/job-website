@@ -314,9 +314,11 @@ def get_job(request, job_id):
             'success': True,
             'job_title': job.job_title,
             'salary': job.salary,
+            'company_name': job.company_name,
             'year_of_experience': job.year_of_experience,
             'status': job.status,
-            'description': job.description
+            'description': job.description,
+            'posted_date': job.posted_date.strftime('%Y-%m-%d')
         })
     except Job.DoesNotExist:
         return JsonResponse({
@@ -328,3 +330,32 @@ def get_job(request, job_id):
             'success': False,
             'error': str(e)
         })
+
+@csrf_exempt
+def get_all_jobs(request):
+    """API endpoint to fetch all jobs for job seekers"""
+    try:
+        # Get all jobs that are open
+        jobs = Job.objects.filter(status='open').order_by('-posted_date')
+        
+        print(f"Found {jobs.count()} open jobs for job seekers")
+        
+        # Serialize jobs to JSON
+        jobs_data = []
+        for job in jobs:
+            jobs_data.append({
+                'id': job.id,
+                'job_title': job.job_title,
+                'salary': job.salary,
+                'company_name': job.company_name,
+                'year_of_experience': job.year_of_experience,
+                'description': job.description,
+                'status': job.status,
+                'posted_date': job.posted_date.strftime('%Y-%m-%d'),
+                'posted_by': job.posted_by.username if job.posted_by else None,
+            })
+        
+        return JsonResponse({'success': True, 'jobs': jobs_data})
+    except Exception as e:
+        print(f"Error fetching jobs: {str(e)}")
+        return JsonResponse({'success': False, 'error': str(e)})
