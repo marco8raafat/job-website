@@ -42,6 +42,7 @@ class Application(models.Model):
     email = models.EmailField()
     appliedAt = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, default="Pending Review")
+    cv_file = models.FileField(upload_to='cvs/', null=True, blank=True)  # Add this field
 
     def __str__(self):
         return f"{self.email} applied to {self.jobTitle}"

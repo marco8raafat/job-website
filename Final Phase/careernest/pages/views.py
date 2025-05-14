@@ -145,7 +145,30 @@ def forget_pass(request):
     return render(request, 'pages/forget-pass.html')
 
 def user_dashboard(request):
-    return render(request, 'pages/user-dashboard.html')
+    if not request.session.get('username'):
+        return render(request, 'pages/login.html')  # Redirect if not logged in
+    
+    try:
+        user = User.objects.get(username=request.session['username'])
+        
+        # Get user's applications
+        applications = Application.objects.filter(email=user.email).order_by('-appliedAt')[:5]  # Last 5 applications
+        
+        # Get saved jobs (if you have a SavedJob model)
+        # saved_jobs = SavedJob.objects.filter(user=user)
+        
+        context = {
+            'username': user.username,
+            'applications': applications,
+            'application_count': applications.count(),
+            # 'saved_jobs': saved_jobs,
+            # 'saved_jobs_count': saved_jobs.count(),
+        }
+        
+        return render(request, 'pages/user-dashboard.html', context)
+        
+    except User.DoesNotExist:
+        return render(request, 'pages/login.html')
 
 def signup_user_dashboard(request):
     return render(request, 'pages/signup/user-dashboard.html')
@@ -359,3 +382,79 @@ def get_all_jobs(request):
     except Exception as e:
         print(f"Error fetching jobs: {str(e)}")
         return JsonResponse({'success': False, 'error': str(e)})
+    
+@csrf_exempt
+def submit_application(request):
+    if request.method == 'POST':
+        try:
+            # Check if user is logged in
+            if not request.session.get('username'):
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Please log in to apply for jobs'
+                })
+            
+            # Get the user
+            user = User.objects.get(username=request.session['username'])
+            
+            # Get the job
+            job_id = request.POST.get('job_id')
+            try:
+                job = Job.objects.get(id=job_id)
+            except Job.DoesNotExist:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Job not found'
+                })
+            
+            # Check if user already applied
+            if Application.objects.filter(job=job, email=user.email).exists():
+                return JsonResponse({
+                    'success': False,
+                    'error': 'You have already applied for this job'
+                })
+            
+            # Handle file upload
+            cv_file = request.FILES.get('cv')
+            if not cv_file:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Please upload your CV'
+                })
+            
+            # Save the file (you might want to use a proper file storage solution)
+            import os
+            from django.conf import settings
+            
+            upload_dir = os.path.join(settings.MEDIA_ROOT, 'cvs')
+            os.makedirs(upload_dir, exist_ok=True)
+            
+            file_path = os.path.join(upload_dir, f"{user.username}_{job.id}_{cv_file.name}")
+            with open(file_path, 'wb+') as destination:
+                for chunk in cv_file.chunks():
+                    destination.write(chunk)
+            
+            # Create the application
+            application = Application.objects.create(
+                job=job,
+                jobTitle=job.job_title,
+                companyName=job.company_name,
+                email=user.email,
+                status="Pending Review"
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Application submitted successfully!'
+            })
+            
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            })
+    
+    return JsonResponse({
+        'success': False,
+        'error': 'Invalid request method'
+    })

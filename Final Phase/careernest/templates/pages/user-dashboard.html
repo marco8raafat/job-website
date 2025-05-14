@@ -22,133 +22,54 @@
 
     <main>
       <section class="dashboard-header">
-        <h1>Welcome, <span class="user-name">Username</span></h1>
+        <h1>Welcome, <span class="user-name">{{ username }}</span></h1>
         <a href="{% url 'job-list' %}" class="btn-primary">Browse Jobs</a>
       </section>
 
       <section class="dashboard-stats">
         <div class="stat-card">
           <h3>Applications</h3>
-          <p class="stat-value">4</p>
+          <p class="stat-value">{{ application_count }}</p>
         </div>
         <div class="stat-card">
           <h3>Viewed Jobs</h3>
-          <p class="stat-value">12</p>
+          <p class="stat-value">0</p>  <!-- Can implement later -->
         </div>
         <div class="stat-card">
           <h3>Saved Jobs</h3>
-          <p class="stat-value">3</p>
+          <p class="stat-value">0</p>  <!-- Can implement later -->
         </div>
       </section>
 
       <section class="recent-applications">
         <h2>My Applications</h2>
         <div class="job-list">
-          <div class="job-card">
-            <div class="job-header">
-              <h3>Frontend Developer</h3>
-              <span class="company-name">Tech Solutions Inc.</span>
-            </div>
-            <p class="job-info">Applied: March 28, 2025</p>
-            <p class="application-status pending">Status: Pending Review</p>
-            <a href="{% url 'job-details' %}" class="btn-secondary">View Job</a>
-          </div>
-
-          <div class="job-card">
-            <div class="job-header">
-              <h3>UX Designer</h3>
-              <span class="company-name">Creative Minds LLC</span>
-            </div>
-            <p class="job-info">Applied: March 25, 2025</p>
-            <p class="application-status reviewing">Status: Under Review</p>
-            <a href="{% url 'job-details' %}" class="btn-secondary">View Job</a>
-          </div>
+          {% if applications %}
+            {% for app in applications %}
+              <div class="job-card">
+                <div class="job-header">
+                  <h3>{{ app.jobTitle }}</h3>
+                  <span class="company-name">{{ app.companyName }}</span>
+                </div>
+                <p class="job-info">Applied: {{ app.appliedAt|date:"F d, Y" }}</p>
+                <p class="application-status {{ app.status|lower|cut:' ' }}">Status: {{ app.status }}</p>
+                <a href="{% url 'job-details' %}?id={{ app.job.id }}" class="btn-secondary">View Job</a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No recent applications.</p>
+          {% endif %}
         </div>
       </section>
+
       <section class="saved-jobs">
         <h2>My Saved Jobs</h2>
-        
+        <p>You haven't saved any jobs yet.</p>  <!-- Can implement later -->
       </section>
     </main>
     <div id="toast" class="toast"></div>
     <footer>
       <p>&copy; 2025 CareerSeek. All rights reserved.</p>
     </footer>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        const userNameElement = document.querySelector(".user-name");
-        const applicationsStat = document.querySelector(
-          ".dashboard-stats .stat-card:nth-child(1) .stat-value"
-        );
-
-        if (currentUser && currentUser.username) {
-          userNameElement.textContent = currentUser.username;
-        } else {
-          userNameElement.textContent = "Guest";
-        }
-
-        // Load and show application count
-        const stats = JSON.parse(localStorage.getItem("userStats")) || {};
-        const count = stats[currentUser?.email]?.applicationCount || 0;
-        if (applicationsStat) {
-          applicationsStat.textContent = count;
-        }
-      });
-
-
-document.addEventListener("DOMContentLoaded", function () {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const jobs = JSON.parse(localStorage.getItem("jobs")) || [];
-  const allSaved = JSON.parse(localStorage.getItem("savedJobs")) || [];
-
-  //get only this user's saved‐jobs
-  const userSaved = allSaved.filter(s => s.userId === currentUser?.id);
-
-  //update the Saved Jobs stat (3rd stat‐card)
-  const savedStat = document.querySelector(
-    ".dashboard-stats .stat-card:nth-child(3) .stat-value"
-  );
-  if (savedStat) {
-    savedStat.textContent = userSaved.length;
-  }
-
-  //render into <section class="saved-jobs">
-  const savedSection = document.querySelector(".saved-jobs");
-  if (savedSection) {
-    if (userSaved.length === 0) {
-      savedSection.innerHTML += `<p>You haven't saved any jobs yet.</p>`;
-    } else {
-      let html = '<div class="job-list">';
-      userSaved.forEach(s => {
-        // find the full job details
-        const job = jobs.find(j => j.id == s.jobId);
-        if (!job) return;
-        html += `
-          <div class="job-card">
-            <div class="job-header">
-              <h3>${job.job_title}</h3>
-              <span class="company-name">${job.company_name}</span>
-            </div>
-            <p class="job-info">
-              ${job.salary} • ${job.year_of_experience} Years Experience
-            </p>
-            <a href="job-details.html?id=${job.id}" class="btn-secondary">
-              View Job
-            </a>
-          </div>
-        `;
-      });
-      html += "</div>";
-      savedSection.innerHTML += html;
-    }
-  }
-});
-</script>
-
-    </script>
   </body>
-  <script src="{% static 'javascript/user-dashboaed.js' %}" defer></script>
-
-  <script src="{% static 'javascript/job-details.js' %}" defer></script>
 </html>

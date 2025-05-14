@@ -67,93 +67,90 @@
       <p>&copy; 2025 CareerNest. All rights reserved.</p>
     </footer>
     <script>
-      // login.js
-// const loginForm = document.querySelector('.login-form form');
-const formsignup = document.getElementById("loginForm");
-let users = JSON.parse(localStorage.getItem("users")) || [];
-loginForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+      const formsignup = document.getElementById("loginForm");
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-  const username = document.querySelector("#login-username").value.trim();
-  const password = document.querySelector("#login-password").value;
+        const username = document.querySelector("#login-username").value.trim();
+        const password = document.querySelector("#login-password").value;
 
-  clearErrors();
+        clearErrors();
 
-  // Send data to Django backend
-  fetch("{% url 'api-login' %}", {
-    method: "POST",
-    headers: {
-      "X-CSRFToken": "{{ csrf_token }}",
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      showToast(`Welcome back, ${username}!`, "success");
-      
-      setTimeout(() => {
-        if (data.usertype === "option1") {
-          window.location.href = "{% url 'user-dashboard' %}";
-        } else if (data.usertype === "option2") {
-          window.location.href = "{% url 'company-dashboard' %}";
-        }
-      }, 2000);
-    } else {
-      showError("login-username", data.error || "Login failed");
-    }
-  })
-  .catch(error => {
-    showToast("Login error. Please try again.", "error");
-    console.error("Error:", error);
-  });
-});
+        // Send data to Django backend
+        fetch("{% url 'api-login' %}", {
+          method: "POST",
+          headers: {
+            "X-CSRFToken": "{{ csrf_token }}",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            showToast(`Welcome back, ${username}!`, "success");
+            
+            setTimeout(() => {
+              if (data.usertype === "option1") {
+                window.location.href = "{% url 'user-dashboard' %}";
+              } else if (data.usertype === "option2") {
+                window.location.href = "{% url 'company-dashboard' %}";
+              }
+            }, 2000);
+          } else {
+            showError("login-username", data.error || "Login failed");
+          }
+        })
+        .catch(error => {
+          showToast("Login error. Please try again.", "error");
+          console.error("Error:", error);
+        });
+      });
 
 
-// Error handling functions (same as signup)
-function showError(fieldId, message) {
-  const field = document.getElementById(fieldId);
-  const error = document.createElement("div");
-  error.className = "error-message";
-  error.textContent = message;
-  field.parentElement.appendChild(error);
-}
+      // Error handling functions (same as signup)
+      function showError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        const error = document.createElement("div");
+        error.className = "error-message";
+        error.textContent = message;
+        field.parentElement.appendChild(error);
+      }
 
-function clearErrors() {
-  const errors = document.querySelectorAll(".error-message");
-  errors.forEach((error) => error.remove());
-}
+      function clearErrors() {
+        const errors = document.querySelectorAll(".error-message");
+        errors.forEach((error) => error.remove());
+      }
 
-// Toast function (same as signup)
-function showToast(message, type = "success") {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.style.backgroundColor =
-    type === "error"
-      ? "var(--danger-color)"
-      : type === "warning"
-      ? "var(--warning-color)"
-      : "var(--success-color)";
-  toast.style.display = "block";
+      // Toast function (same as signup)
+      function showToast(message, type = "success") {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.style.backgroundColor =
+          type === "error"
+            ? "var(--danger-color)"
+            : type === "warning"
+            ? "var(--warning-color)"
+            : "var(--success-color)";
+        toast.style.display = "block";
 
-  setTimeout(() => {
-    toast.style.display = "none";
-  }, 3000);
-}
+        setTimeout(() => {
+          toast.style.display = "none";
+        }, 3000);
+      }
 
-const passwordInput = document.getElementById('login-password');
-const togglePassword = document.getElementById('toggle-password');
+      const passwordInput = document.getElementById('login-password');
+      const togglePassword = document.getElementById('toggle-password');
 
-togglePassword.addEventListener('click', function () {
-  // Toggle the type attribute
-  const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-  passwordInput.setAttribute('type', type);
-  
-  // Toggle the eye / eye-slash icon
-  this.classList.toggle('uil-eye');
-  this.classList.toggle('uil-eye-slash');
-});
+      togglePassword.addEventListener('click', function () {
+        // Toggle the type attribute
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Toggle the eye / eye-slash icon
+        this.classList.toggle('uil-eye');
+        this.classList.toggle('uil-eye-slash');
+      });
     </script>
   </body>
 </html>

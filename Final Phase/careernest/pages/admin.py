@@ -1,3 +1,4 @@
+from traceback import format_tb
 from django.contrib import admin
 from .models import User, Job, Application
 
@@ -21,12 +22,18 @@ class JobAdmin(admin.ModelAdmin):
 
 # Custom Admin for Application model
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ('id', 'jobTitle', 'companyName', 'email', 'status', 'appliedAt')
+    list_display = ('id', 'jobTitle', 'companyName', 'email', 'status', 'appliedAt', 'cv_file')
     list_display_links = ('id', 'jobTitle')
     search_fields = ('jobTitle', 'companyName', 'email')
     list_filter = ('status', 'appliedAt')
     date_hierarchy = 'appliedAt'
     ordering = ('-appliedAt',)
+    
+    def cv_file_link(self, obj):
+        if obj.cv_file:
+            return format_tb("<a href='{url}' download>Download CV</a>", url=obj.cv_file.url)
+        return "No CV"
+    cv_file_link.short_description = 'CV File'
 
 # Register your models with their admin classes
 admin.site.register(User, UserAdmin)
