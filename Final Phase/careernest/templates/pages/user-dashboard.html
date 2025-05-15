@@ -53,7 +53,12 @@
                 </div>
                 <p class="job-info">Applied: {{ app.appliedAt|date:"F d, Y" }}</p>
                 <p class="application-status {{ app.status|lower|cut:' ' }}">Status: {{ app.status }}</p>
-                <a href="{% url 'job-details' %}?id={{ app.job.id }}" class="btn-secondary">View Job</a>
+                <div class="application-details">
+                  {% if app.cv_file %}
+                    <a href="{{ app.cv_file.url }}" class="btn-secondary" download>Download CV</a>
+                  {% endif %}
+                  <a href="{% url 'job-details' %}?id={{ app.job.id }}" class="btn-secondary">View Job</a>
+                </div>
               </div>
             {% endfor %}
           {% else %}

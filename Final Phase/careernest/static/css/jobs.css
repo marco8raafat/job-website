@@ -91,22 +91,29 @@
 .application-status {
   font-weight: 600;
   margin-bottom: 1rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  display: inline-block;
 }
 
 .application-status.pending {
-  color: var(--accent-color);
+  background-color: var(--accent-color);
+  color: white;
 }
 
 .application-status.reviewing {
-  color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: white;
 }
 
 .application-status.accepted {
-  color: var(--success-color);
+  background-color: var(--success-color);
+  color: white;
 }
 
 .application-status.rejected {
-  color: var(--danger-color);
+  background-color: var(--danger-color);
+  color: white;
 }
 
 /* Job Details Page */
@@ -344,4 +351,16 @@ select#status-filter {
     width: 100%;
     text-align: center;
   }
+}
+
+.application-details {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.application-details .btn-secondary {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
 }

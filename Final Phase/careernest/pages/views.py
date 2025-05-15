@@ -358,8 +358,22 @@ def get_job(request, job_id):
 def get_all_jobs(request):
     """API endpoint to fetch all jobs for job seekers"""
     try:
-        # Get all jobs that are open
-        jobs = Job.objects.filter(status='open').order_by('-posted_date')
+        # Get query parameters
+        experience = request.GET.get('experience')
+        
+        # Start with all open jobs
+        jobs = Job.objects.filter(status='open')
+        
+        # Apply experience filter if provided
+        if experience:
+            try:
+                exp_years = int(experience)
+                jobs = jobs.filter(year_of_experience__lte=exp_years)
+            except ValueError:
+                pass
+        
+        # Order by posted date
+        jobs = jobs.order_by('-posted_date')
         
         print(f"Found {jobs.count()} open jobs for job seekers")
         
@@ -414,7 +428,7 @@ def submit_application(request):
                     'error': 'You have already applied for this job'
                 })
             
-            # Handle file upload
+            # Handle CV file upload
             cv_file = request.FILES.get('cv')
             if not cv_file:
                 return JsonResponse({
@@ -422,25 +436,21 @@ def submit_application(request):
                     'error': 'Please upload your CV'
                 })
             
-            # Save the file (you might want to use a proper file storage solution)
-            import os
-            from django.conf import settings
+            # Validate PDF file
+            if not cv_file.name.lower().endswith('.pdf'):
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Please upload your CV in PDF format only'
+                })
             
-            upload_dir = os.path.join(settings.MEDIA_ROOT, 'cvs')
-            os.makedirs(upload_dir, exist_ok=True)
-            
-            file_path = os.path.join(upload_dir, f"{user.username}_{job.id}_{cv_file.name}")
-            with open(file_path, 'wb+') as destination:
-                for chunk in cv_file.chunks():
-                    destination.write(chunk)
-            
-            # Create the application
+            # Create the application with CV file
             application = Application.objects.create(
                 job=job,
                 jobTitle=job.job_title,
                 companyName=job.company_name,
                 email=user.email,
-                status="Pending Review"
+                status="Pending Review",
+                cv_file=cv_file  # This will automatically save the file in the cvs/ directory
             )
             
             return JsonResponse({
