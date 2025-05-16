@@ -237,9 +237,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const userNameElement = document.querySelector(".company-name1");
-  if (userNameElement) {
-    userNameElement.textContent = currentUser?.username || "Guest";
+  const userNameElement = document.querySelector(".company-name-display");
+  if (userNameElement && currentUser) {
+    userNameElement.textContent = currentUser.username || currentUser.companyName || "Company Name";
   }
 });
 

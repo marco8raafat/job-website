@@ -183,7 +183,19 @@ def job_details(request):
     return render(request, 'pages/job-details.html')
 
 def company_dashboard(request): 
-    return render(request, 'pages/company-dashboard.html')
+    if not request.session.get('username'):
+        return render(request, 'pages/login.html')  # Redirect if not logged in
+    
+    try:
+        user = User.objects.get(username=request.session['username'])
+        
+        context = {
+            'user': user,
+        }
+        
+        return render(request, 'pages/company-dashboard.html', context)
+    except User.DoesNotExist:
+        return render(request, 'pages/login.html')
 
 def company_jobs(request):
     return render(request, 'pages/company-jobs.html')
