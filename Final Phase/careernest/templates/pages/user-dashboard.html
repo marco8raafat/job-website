@@ -57,7 +57,7 @@
                   {% if app.cv_file %}
                     <a href="{{ app.cv_file.url }}" class="btn-secondary" download>Download CV</a>
                   {% endif %}
-                  <a href="{% url 'job-details' %}?id={{ app.job.id }}" class="btn-secondary">View Job</a>
+                  <a href="{% url 'job-details' %}?id={{ app.job.id }}" class="btn-secondary" style = " margin-left: 8px">View Job</a>
                 </div>
               </div>
             {% endfor %}
