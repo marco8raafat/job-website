@@ -1,17 +1,14 @@
 from django.shortcuts import render
-# views.py
-# views.py (add this function)
 from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password
-from .models import User
 from django.contrib.auth.hashers import check_password
 from django.views.decorators.csrf import csrf_exempt
-from .models import Job
 from django.views.decorators.http import require_http_methods
-import json
+from .models import User
+from .models import Job
 from .models import Application
+import json
 
-# views.py
 @csrf_exempt
 def create_job(request):
     if request.method == 'POST':
@@ -183,19 +180,7 @@ def job_details(request):
     return render(request, 'pages/job-details.html')
 
 def company_dashboard(request): 
-    if not request.session.get('username'):
-        return render(request, 'pages/login.html')  # Redirect if not logged in
-    
-    try:
-        user = User.objects.get(username=request.session['username'])
-        
-        context = {
-            'user': user,
-        }
-        
-        return render(request, 'pages/company-dashboard.html', context)
-    except User.DoesNotExist:
-        return render(request, 'pages/login.html')
+    return render(request, 'pages/company-dashboard.html')
 
 def company_jobs(request):
     return render(request, 'pages/company-jobs.html')
@@ -281,8 +266,6 @@ def delete_job(request, job_id):
         print(f"Error deleting job: {str(e)}")
         return JsonResponse({'success': False, 'error': str(e)})
 
-# views.py
-# views.py
 def edit_job(request, job_id=None):
     # If job_id comes from URL path
     if job_id is not None:
