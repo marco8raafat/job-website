@@ -180,7 +180,27 @@ def job_details(request):
     return render(request, 'pages/job-details.html')
 
 def company_dashboard(request): 
-    return render(request, 'pages/company-dashboard.html')
+    if not request.session.get('username'):
+        return render(request, 'pages/login.html')  # Redirect if not logged in
+    
+    try:
+        user = User.objects.get(username=request.session['username'])
+        
+        # Get all jobs posted by this company
+        company_jobs = Job.objects.filter(posted_by=user)
+        
+        # Get total applications for all company jobs
+        total_applications = Application.objects.filter(job__in=company_jobs).count()
+        
+        context = {
+            'user': user,
+            'total_applications': total_applications
+        }
+        
+        return render(request, 'pages/company-dashboard.html', context)
+        
+    except User.DoesNotExist:
+        return render(request, 'pages/login.html')
 
 def company_jobs(request):
     return render(request, 'pages/company-jobs.html')
@@ -445,12 +465,17 @@ def submit_application(request):
                 companyName=job.company_name,
                 email=user.email,
                 status="Pending Review",
-                cv_file=cv_file  # This will automatically save the file in the cvs/ directory
+                cv_file=cv_file
             )
+            
+            # Get updated total applications count for the company
+            company_jobs = Job.objects.filter(posted_by=job.posted_by)
+            total_applications = Application.objects.filter(job__in=company_jobs).count()
             
             return JsonResponse({
                 'success': True,
-                'message': 'Application submitted successfully!'
+                'message': 'Application submitted successfully!',
+                'total_applications': total_applications
             })
             
         except Exception as e:

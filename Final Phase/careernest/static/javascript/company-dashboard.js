@@ -1,171 +1,202 @@
-document.addEventListener("DOMContentLoaded", function() {
-  // Fetch jobs from the server
-  fetchJobs();
-
-  function fetchJobs() {
-    // Show loading indicator
-    const recentJobsList = document.querySelector(".recent-jobs .job-list");
-    if (recentJobsList) {
-      recentJobsList.innerHTML = '<p class="loading">Loading jobs...</p>';
-    }
-    
-    const allJobsList = document.querySelector(".jobs-container1 .job-list1");
-    if (allJobsList) {
-      allJobsList.innerHTML = '<p class="loading">Loading jobs...</p>';
-    }
-    
-    fetch('/api/get-jobs/')
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          displayJobs(data.jobs);
-          updateStats(data.jobs);
-        } else {
-          console.error("Error fetching jobs:", data.error);
-          
-          // Display authentication error message if relevant
-          if (data.error && data.error.includes("Authentication")) {
-            const message = '<p class="no-jobs">Please <a href="/login/">log in</a> as a company to view your jobs.</p>';
-            if (recentJobsList) recentJobsList.innerHTML = message;
-            if (allJobsList) allJobsList.innerHTML = message;
-          } else {
-            showToast("Failed to load jobs: " + data.error, "error");
-            if (recentJobsList) recentJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs</p>';
-            if (allJobsList) allJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs</p>';
-          }
-        }
-      })
-      .catch(error => {
-        console.error("Error fetching jobs:", error);
-        showToast("Failed to load jobs. Please try again later.", "error");
-        if (recentJobsList) recentJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs</p>';
-        if (allJobsList) allJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs</p>';
-      });
+document.addEventListener("DOMContentLoaded", function () {
+  // USER JOB LIST PAGE
+  const userJobList = document.querySelector(".jobs-container .job-list");
+  if (userJobList) {
+    userJobList.innerHTML = "<p>No jobs available.</p>";
   }
 
-  function displayJobs(jobs) {
-    // Display recent jobs on company dashboard
-    const recentJobsList = document.querySelector(".recent-jobs .job-list");
-    if (recentJobsList) {
-      // Take only the 3 most recent jobs
-      const recentJobs = [...jobs].sort((a, b) => new Date(b.posted_date) - new Date(a.posted_date)).slice(0, 3);
-      
-      if (recentJobs.length === 0) {
-        recentJobsList.innerHTML = '<p class="no-jobs">No jobs posted yet. <a href="/add-job/">Post your first job</a></p>';
-        return;
-      }
-      
-      recentJobsList.innerHTML = '';
-      recentJobs.forEach(job => {
-        const jobCard = `
-          <div class="job-card">
-            <div class="job-header">
-              <h3>${job.job_title}</h3>
-              <span class="job-status ${job.status || "open"}">${job.status || "Open"}</span>
-            </div>
-            <p class="job-info">${job.salary} • ${job.year_of_experience} Years Experience</p>
-            <div class="job-actions">
-                <a href="/edit-job/${job.id}/" class="btn-secondary">Edit</a> 
-              <a href="#" class="btn-danger" onclick="deleteJob(${job.id}); return false;">Delete</a>
-            </div>
-          </div>
-        `;
-        recentJobsList.insertAdjacentHTML("beforeend", jobCard);
-      });
-    }
+  // COMPANY DASHBOARD (RECENT JOBS)
+  const companyJobList = document.querySelector(".jobs-container1 .job-list1");
+  if (companyJobList) {
+    companyJobList.innerHTML = "<p>No recent jobs.</p>";
+  }
 
-    // Display all jobs on company jobs page
-    const allJobsList = document.querySelector(".jobs-container1 .job-list1");
-    if (allJobsList) {
-      if (jobs.length === 0) {
-        allJobsList.innerHTML = '<p class="no-jobs">No jobs posted yet. <a href="/add-job/">Post your first job</a></p>';
-        return;
-      }
-      
-      allJobsList.innerHTML = '';
-      jobs.forEach(job => {
-        const jobCard = `
-          <div class="job-card">
-            <div class="job-header">
-              <h3>${job.job_title}</h3>
-              <span class="job-status ${job.status || "open"}">${job.status || "Open"}</span>
-            </div>
-            <p class="job-info">${job.salary} • ${job.year_of_experience} Years Experience</p>
-            <div class="job-actions">
-            
-              <a href="/edit-job/${job.id}/" class="btn-secondary">Edit</a> 
+  const companyJobList1 = document.querySelector(".recent-jobs .job-list");
+  if (companyJobList1) {
+    companyJobList1.innerHTML = "<p>No recent jobs.</p>";
+  }
+
+  const activeJobsCount = document.querySelector(
+    ".dashboard-stats .stat-card:nth-child(1) .stat-value"
+  );
+  if (activeJobsCount) {
+    activeJobsCount.textContent = "0";
+  }
+
+  // COMPANY JOBS PAGE (ALL JOBS)
+  const companyAllJobsList = document.querySelector(".company-jobs-list");
+  if (companyAllJobsList) {
+    companyAllJobsList.innerHTML = "<p>No jobs posted yet.</p>";
+  }
+
+  // JOB DETAILS PAGE
+  const jobDetailsContainer = document.querySelector(".job-details");
+  if (jobDetailsContainer) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const jobId = urlParams.get("id");
+    
+    if (jobId) {
+      fetch(`/api/get-job/${jobId}/`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            const job = data;
+            jobDetailsContainer.innerHTML = `
+              <div class="job-header-details">
+                <div class="back-link">
+                  <a href="#" id="backLink">← Back to Jobs</a>
+                </div>
+                <h1>${job.job_title}</h1>
+                <div class="company-info">
+                  <span class="company-name">${job.company_name}</span>
+                  <span class="job-status ${job.status || "open"}">${job.status || "Open"}</span>
+                </div>
+                <div class="job-meta">
+                  <p class="salary">${job.salary}</p>
+                  <p class="experience">${job.year_of_experience} Years Experience</p>
+                  <p class="date">Posted: ${job.posted_date}</p>
+                </div>
+              </div>
+
+              <div class="job-description">
+                <h2>Job Description</h2>
+                <p>${job.description}</p>
+              </div>
               
-              <a href="#" class="btn-danger" onclick="deleteJob(${job.id}); return false;">Delete</a>
-            </div>
-          </div>
-        `;
-        allJobsList.insertAdjacentHTML("beforeend", jobCard);
-      });
+              <div id="applyForm">
+                <div class="cv-input">
+                  <h3>Input your CV here:</h3>
+                  <input type="file" id="cvInput" name="cv" accept=".pdf" required />
+                  <p class="cv-note">Please upload your CV in PDF format only.</p>
+                </div>
+                        
+                <div class="apply-section">
+                  <button id="applyBtn" type="submit" class="btn-primary btn-large">Apply Now</button>
+                </div>
+              </div>
+            `;
+            
+            // Add event listener to apply button
+            const applyBtn = document.getElementById("applyBtn");
+            const cvInput = document.getElementById("cvInput");
+            
+            if (applyBtn && cvInput) {
+              applyBtn.addEventListener("click", function() {
+                if (!cvInput.files.length) {
+                  showToast("Please upload your CV before applying", "warning");
+                  return;
+                }
+                
+                // Create FormData to send both the file and job data
+                const formData = new FormData();
+                formData.append('cv', cvInput.files[0]);
+                formData.append('job_id', jobId);
+                
+                // Submit the application
+                fetch('/api/submit-application/', {
+                  method: 'POST',
+                  headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                  },
+                  body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                  if (data.success) {
+                    showToast("Application submitted successfully!", "success");
+                    
+                    // Dispatch event with updated application count
+                    const event = new CustomEvent('applicationSubmitted', {
+                      detail: {
+                        total_applications: data.total_applications
+                      }
+                    });
+                    window.dispatchEvent(event);
+                    
+                    // Disable apply button after successful submission
+                    applyBtn.disabled = true;
+                    applyBtn.textContent = "Applied";
+                  } else {
+                    showToast(data.error || "Failed to submit application", "error");
+                  }
+                })
+                .catch(error => {
+                  console.error("Error submitting application:", error);
+                  showToast("Error submitting application", "error");
+                });
+              });
+            }
+            
+            // Add back button functionality
+            const backLink = document.getElementById("backLink");
+            if (backLink) {
+              backLink.addEventListener("click", function(e) {
+                e.preventDefault();
+                window.history.back();
+              });
+            }
+          } else {
+            jobDetailsContainer.innerHTML = `
+              <div class="job-header-details">
+                <div class="back-link">
+                  <a href="#" id="backLink">← Back to Jobs</a>
+                </div>
+                <h1>Job Not Found</h1>
+                <div class="company-info">
+                  <span class="company-name">Unknown Company</span>
+                  <span class="job-status">Closed</span>
+                </div>
+              </div>
+              <div class="job-description">
+                <p>The requested job could not be found.</p>
+              </div>
+            `;
+            
+            const backLink = document.getElementById("backLink");
+            if (backLink) {
+              backLink.addEventListener("click", function(e) {
+                e.preventDefault();
+                window.history.back();
+              });
+            }
+          }
+        })
+        .catch(error => {
+          console.error("Error fetching job details:", error);
+          showToast("Error loading job details", "error");
+        });
     }
   }
 
-  function updateStats(jobs) {
-    // Update dashboard stats
-    const activeJobsCount = document.querySelector(".dashboard-stats .stat-card:nth-child(1) .stat-value");
-    if (activeJobsCount) {
-      const openJobs = jobs.filter(job => job.status !== "closed").length;
-      activeJobsCount.textContent = openJobs;
-    }
+  const userNameElement = document.querySelector(".company-name1");
+  if (userNameElement) {
+    userNameElement.textContent = "Guest";
+  }
 
-    // Applications count could be fetched separately in a real app
-    const applicationsCount = document.querySelector(".dashboard-stats .stat-card:nth-child(2) .stat-value");
+  // Listen for application submission events
+  window.addEventListener('applicationSubmitted', function(event) {
+    const totalApplications = event.detail.total_applications;
+    const applicationsCount = document.querySelector('.dashboard-stats .stat-card:nth-child(2) .stat-value');
     if (applicationsCount) {
-      // This would ideally come from the server
-      applicationsCount.textContent = "0";
+      applicationsCount.textContent = totalApplications;
     }
-
-    // Recent jobs count
-    const recentJobsCount = document.querySelector(".dashboard-stats .stat-card:nth-child(3) .stat-value");
-    if (recentJobsCount) {
-      const recentJobs = jobs.length > 3 ? 3 : jobs.length;
-      recentJobsCount.textContent = recentJobs;
-    }
-  }
+  });
 });
 
 function deleteJob(jobId) {
   if (confirm("Are you sure you want to delete this job?")) {
-    fetch(`/api/delete-job/${jobId}/`, {
-      method: 'DELETE',
-      headers: {
-        'X-CSRFToken': getCookie('csrftoken'),
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        showToast("Job deleted successfully", "success");
-        setTimeout(() => window.location.reload(), 1000);
-      } else {
-        showToast("Failed to delete job: " + data.error, "error");
-      }
-    })
-    .catch(error => {
-      showToast("An error occurred: " + error.message, "error");
-    });
+    showToast("Job deletion would be processed server-side", "info");
   }
 }
 
 function showToast(message, type = "success") {
   const toast = document.getElementById("toast");
-  if (!toast) {
-    // Create toast element if it doesn't exist
-    const toastElement = document.createElement("div");
-    toastElement.id = "toast";
-    toastElement.className = "toast";
-    document.body.appendChild(toastElement);
-    toast = toastElement;
-  }
+  if (!toast) return;
   
   toast.textContent = message;
-  toast.style.backgroundColor = 
-    type === "error" ? "var(--danger-color)" : 
-    type === "warning" ? "var(--warning-color)" : 
+  toast.style.backgroundColor =
+    type === "error" ? "var(--danger-color)" :
+    type === "warning" ? "var(--warning-color)" :
     "var(--success-color)";
   toast.style.display = "block";
 
@@ -174,18 +205,6 @@ function showToast(message, type = "success") {
   }, 3000);
 }
 
-// Helper function to get CSRF token
-function getCookie(name) {
-  let cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
-    for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
-      }
-    }
-  }
-  return cookieValue;
-} 
+function saveJob(jobId) {
+  showToast("Please log in to save jobs", "warning");
+}

@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function() {
         <p class="job-description-preview">${job.description.substring(0, 150)}${job.description.length > 150 ? '...' : ''}</p>
         <div class="job-buttons">
           <a href="/job-details/?id=${job.id}" class="btn-primary">View Details</a>
-          <button onclick="saveJob(${job.id})" class="btn-primary">Save</button>
         </div>
       </div>
     `;
