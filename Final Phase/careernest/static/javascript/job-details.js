@@ -23,6 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
     activeJobsCount.textContent = "0";
   }
 
+  const applyJobsCount = document.querySelector(
+    ".dashboard-stats .stat-card:nth-child(2) .stat-value"
+  );
+  if (applyJobsCount) {
+    applyJobsCount.textContent = "0";
+  }
   // COMPANY JOBS PAGE (ALL JOBS)
   const companyAllJobsList = document.querySelector(".company-jobs-list");
   if (companyAllJobsList) {
@@ -202,12 +208,6 @@ function showToast(message, type = "success") {
 
   setTimeout(() => {
     toast.style.display = "none";
-  }, 3000);
-}
-
-function saveJob(jobId) {
-  showToast("Please log in to save jobs", "warning");
-}   toast.style.display = "none";
   }, 3000);
 }
 
