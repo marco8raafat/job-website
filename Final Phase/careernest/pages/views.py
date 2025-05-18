@@ -193,7 +193,7 @@ def company_dashboard(request):
         total_applications = Application.objects.filter(job__in=company_jobs).count()
         
         context = {
-            'user': user,
+            'user': user,  # This passes the user object to the template
             'total_applications': total_applications
         }
         

@@ -65,11 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }
-
-  const userNameElement = document.querySelector(".company-name1");
-  if (userNameElement) {
-    userNameElement.textContent = "Guest";
-  }
 });
 
 function deleteJob(jobId) {

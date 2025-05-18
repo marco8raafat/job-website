@@ -13,20 +13,99 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const companyJobList1 = document.querySelector(".recent-jobs .job-list");
   if (companyJobList1) {
-    companyJobList1.innerHTML = "<p>No recent jobs.</p>";
-  }
-
-  const activeJobsCount = document.querySelector(
-    ".dashboard-stats .stat-card:nth-child(1) .stat-value"
-  );
-  if (activeJobsCount) {
-    activeJobsCount.textContent = "0";
+    // Fetch jobs for this company
+    fetch('/api/get-jobs/')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.jobs && data.jobs.length > 0) {
+          // Update active jobs count
+          const activeJobsCount = document.querySelector(
+            ".dashboard-stats .stat-card:nth-child(1) .stat-value"
+          );
+          if (activeJobsCount) {
+            const openJobs = data.jobs.filter(job => job.status === 'open').length;
+            activeJobsCount.textContent = openJobs;
+          }
+          
+          // Update recent jobs count
+          const recentJobsCount = document.querySelector(
+            ".dashboard-stats .stat-card:nth-child(3) .stat-value"
+          );
+          if (recentJobsCount) {
+            recentJobsCount.textContent = data.jobs.length;
+          }
+          
+          // Display recent jobs (up to 5)
+          const recentJobs = data.jobs.slice(0, 5);
+          companyJobList1.innerHTML = recentJobs.map(job => `
+            <div class="job-card">
+              <div class="job-card-header">
+                <h3>${job.job_title}</h3>
+                <span class="job-status ${job.status}">${job.status}</span>
+              </div>
+              <div class="job-card-body">
+                <p class="job-company">${job.company_name}</p>
+                <p class="job-salary">${job.salary}</p>
+                <p class="job-experience">${job.year_of_experience} Years Experience</p>
+              </div>
+              <div class="job-card-footer">
+                <p class="job-date">Posted: ${job.posted_date}</p>
+                <a href="/edit-job/${job.id}" class="btn-secondary">Edit</a>
+              </div>
+            </div>
+          `).join('');
+          
+          // Remove loading message
+          const loadingMessage = companyJobList1.querySelector('.loading');
+          if (loadingMessage) {
+            loadingMessage.remove();
+          }
+        } else {
+          companyJobList1.innerHTML = "<p>No recent jobs.</p>";
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching jobs:", error);
+        companyJobList1.innerHTML = "<p>Error loading jobs.</p>";
+      });
   }
 
   // COMPANY JOBS PAGE (ALL JOBS)
-  const companyAllJobsList = document.querySelector(".company-jobs-list");
-  if (companyAllJobsList) {
-    companyAllJobsList.innerHTML = "<p>No jobs posted yet.</p>";
+  const companyJobsList = document.querySelector(".job-list1");
+  if (companyJobsList) {
+    // Show loading
+    companyJobsList.innerHTML = '<p class="loading">Loading jobs...</p>';
+
+    fetch('/api/get-jobs/')
+      .then(response => response.json())
+      .then(data => {
+        if (data.success && data.jobs && data.jobs.length > 0) {
+          companyJobsList.innerHTML = data.jobs.map(job => `
+            <div class="job-card">
+              <div class="job-card-header">
+                <h3>${job.job_title}</h3>
+                <span class="job-status ${job.status}">${job.status}</span>
+              </div>
+              <div class="job-card-body">
+                <p class="job-company">${job.company_name}</p>
+                <p class="job-salary">${job.salary}</p>
+                <p class="job-experience">${job.year_of_experience} Years Experience</p>
+              </div>
+              <div class="job-card-footer">
+                <p class="job-date">Posted: ${job.posted_date}</p>
+                <a href="/edit-job/${job.id}/" class="btn-secondary">Edit</a>
+                <button onclick="deleteJob(${job.id})" class="btn-danger">Delete</button>
+              </div>
+            </div>
+          `).join('');
+        } else {
+          companyJobsList.innerHTML = '<p class="no-jobs">No jobs posted yet. <a href="/add-job/">Post your first job</a></p>';
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching jobs:", error);
+        companyJobsList.innerHTML = '<p class="no-jobs">Failed to load jobs. Please try again later.</p>';
+      });
   }
 
   // JOB DETAILS PAGE
@@ -167,11 +246,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
   }
-
-  const userNameElement = document.querySelector(".company-name1");
-  if (userNameElement) {
-    userNameElement.textContent = "Guest";
-  }
 });
 
 // Listen for application submission events
@@ -185,7 +259,24 @@ window.addEventListener('applicationSubmitted', function(event) {
 
 function deleteJob(jobId) {
   if (confirm("Are you sure you want to delete this job?")) {
-    showToast("Job deletion would be processed server-side", "info");
+    fetch(`/api/delete-job/${jobId}/`, {
+      method: "DELETE",
+      headers: {
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          showToast("Job deleted successfully", "success");
+          setTimeout(() => window.location.reload(), 1000);
+        } else {
+          showToast("Failed to delete job: " + data.error, "error");
+        }
+      })
+      .catch((error) => {
+        showToast("An error occurred: " + error.message, "error");
+      });
   }
 }
 
@@ -207,4 +298,20 @@ function showToast(message, type = "success") {
 
 function saveJob(jobId) {
   showToast("Please log in to save jobs", "warning");
+}
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
 }

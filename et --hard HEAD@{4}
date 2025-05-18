@@ -1,0 +1,71 @@
+[33macd7d01[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: pull --tags origin main: Fast-forward
+[33md5429e1[m HEAD@{1}: reset: moving to HEAD@{1}
+[33macd7d01[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{2}: pull --tags origin main: Fast-forward
+[33md5429e1[m HEAD@{3}: pull --tags origin main: Fast-forward
+[33m9b45bf0[m HEAD@{4}: commit: update date to local date
+[33ma99a6e4[m HEAD@{5}: commit: update button of the download my cv
+[33ma4acd01[m HEAD@{6}: pull --tags origin main: Fast-forward
+[33mcafa0fe[m HEAD@{7}: pull --tags origin main: Fast-forward
+[33me3ddc65[m HEAD@{8}: pull --tags origin main: Fast-forward
+[33mb94844c[m HEAD@{9}: commit: marco
+[33mc645f15[m HEAD@{10}: commit: browse Jobs
+[33m3555e77[m HEAD@{11}: commit: edit jobs
+[33m7dffe6f[m HEAD@{12}: commit: uniquness of the users jobs
+[33m13b7a14[m HEAD@{13}: commit: fetching data from database
+[33m68ad6ea[m HEAD@{14}: commit (merge): marco
+[33m8288032[m HEAD@{15}: commit: adding jobs
+[33ma27d3a7[m HEAD@{16}: commit: login
+[33mfc28ba3[m HEAD@{17}: commit (merge): Resolved merge conflicts in database file
+[33m59f84e8[m HEAD@{18}: commit (merge): push
+[33m58e179f[m HEAD@{19}: commit: marco
+[33mab8a17a[m HEAD@{20}: commit: marco
+[33m529fe78[m HEAD@{21}: commit: its not me
+[33m3e1d04e[m HEAD@{22}: commit: marco
+[33m07d43c6[m HEAD@{23}: pull --tags origin main: Fast-forward
+[33mcd14549[m HEAD@{24}: commit: save
+[33mab8472c[m HEAD@{25}: commit: marco
+[33mc2c6c81[m HEAD@{26}: commit: marco
+[33m42e655d[m[33m ([m[1;31morigin/final_isa[m[33m)[m HEAD@{27}: pull --tags origin final_isa: Fast-forward
+[33m7c990d0[m[33m ([m[1;31morigin/final-isa[m[33m)[m HEAD@{28}: commit: marco
+[33m0e562ef[m HEAD@{29}: commit: maarco
+[33m74449f4[m HEAD@{30}: commit: marco
+[33me445a2f[m HEAD@{31}: pull --tags origin main: Fast-forward
+[33m8550265[m HEAD@{32}: commit: marco
+[33meedaef7[m HEAD@{33}: commit: marco
+[33m26398d0[m HEAD@{34}: commit: marco
+[33md1a0238[m HEAD@{35}: commit: marco
+[33mea8ea66[m HEAD@{36}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m7a83d73[m HEAD@{37}: commit: marco
+[33md94228b[m HEAD@{38}: commit: marco
+[33mc9ce198[m HEAD@{39}: pull --tags origin main: Fast-forward
+[33m12c91a8[m HEAD@{40}: pull --tags origin main: Fast-forward
+[33md0b392f[m HEAD@{41}: commit: marco
+[33m782eac2[m HEAD@{42}: pull --tags origin main: Fast-forward
+[33m4c59b9d[m HEAD@{43}: commit: marco
+[33m03deab3[m HEAD@{44}: pull --tags origin main: Fast-forward
+[33m739b7ce[m HEAD@{45}: commit: marco
+[33m6159517[m HEAD@{46}: commit: marco
+[33mc28c42e[m HEAD@{47}: pull --tags origin main: Fast-forward
+[33m70f4b48[m HEAD@{48}: commit: marco
+[33m9cc54cf[m HEAD@{49}: commit: marco
+[33m095ded3[m HEAD@{50}: pull --tags origin main: Fast-forward
+[33m0d9e998[m HEAD@{51}: pull --tags origin main: Fast-forward
+[33m25376dc[m HEAD@{52}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33mc724019[m HEAD@{53}: commit: hover sign up
+[33m89eeaf1[m HEAD@{54}: commit: Add forget password functionality and styles
+[33m7b49b08[m HEAD@{55}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m927e916[m HEAD@{56}: commit: forget pass
+[33m8bfa48e[m HEAD@{57}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m309739e[m HEAD@{58}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33m500715f[m HEAD@{59}: commit: marco
+[33m3b0e48c[m HEAD@{60}: commit: update index.html structure and styling for improved layout
+[33m2c17d98[m HEAD@{61}: commit: marco
+[33m69efb24[m HEAD@{62}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33mb4f353b[m HEAD@{63}: commit: adel
+[33mb42bbff[m HEAD@{64}: commit: marco
+[33m4e95bb4[m HEAD@{65}: pull --tags origin main: Fast-forward
+[33m09bedfc[m HEAD@{66}: commit: marco
+[33mc50c8ee[m HEAD@{67}: commit: marco
+[33m9325b8b[m HEAD@{68}: pull --tags origin main: Merge made by the 'ort' strategy.
+[33ma5e2023[m HEAD@{69}: commit: marcoo
+[33mb768eb9[m HEAD@{70}: clone: from https://github.com/minamaher005/job-website.git
